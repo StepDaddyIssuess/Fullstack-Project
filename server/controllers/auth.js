@@ -12,15 +12,31 @@ const register =  async (req, res) => {
     const { name, email, password, secret } = req.body;
     
     //Validation
-    if(!name) return res.status(400).send("Name is required");
+    if(!name) {
+        return res.json({
+            error: "Name is required"
+        })
+    };
 
-    if(!password || password.length < 6) return res.status(400).send("Password is required and must be at least 6 characters");
+    if(!password || password.length < 6) {
+        return res.json({
+            error: "Password is required and must be at least 6 characters"
+        })
+    };
     
-    if (!secret) return res.status(400).send("Anwser is required");
+    if (!secret) {
+        return res.json({
+            error: "Secret is required."
+        })
+    };
 
     // check if email already exists
     const exist = await User.findOne({ email });
-    if(exist) return res.status(400).send("Email already exists");
+    if(exist) {
+        return res.json({
+            error: "Email already exists"
+        })
+    };
 
     // Hash the password
 
@@ -44,7 +60,9 @@ const register =  async (req, res) => {
     }
     catch(err) {
         console.log("REGISTER FAILED => ", err);
-        return res.status(400).send("Error. Try again.")
+        return res.json({
+            error: "Error. Try again."
+        })
     }
 
 };
@@ -58,11 +76,19 @@ const login =  async (req, res) => {
 
         // Check if the email exists
         const user = await User.findOne({ email: email})
-        if(!user) return res.status(400).send("User not found.");
+        if(!user) {
+            return res.json({
+                error: "User not found."
+            });
+        };
 
         // Check password
         const match = await comparePassword(password, user.password);
-        if(!match) return res.status(400).send("Wrong password.");
+        if(!match) {
+            return res.json({
+                error: "Wrong password."
+            })
+        };
 
         // Create a token
         const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET, {expiresIn: "7d"});
@@ -79,7 +105,9 @@ const login =  async (req, res) => {
     }
     catch (error) {
         console.log(error);
-        return res.status(400).send("Error. try again.");
+        return res.json({
+            error: "Error. try again."
+        });
     }
 }
 

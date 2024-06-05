@@ -80,8 +80,8 @@ const AuthForm = ({
                         <div className="form-group p-2">
                         <button disabled={
                             page === "login"
-                            ?  !email || !password
-                            : !name || !email || !secret || !password
+                            ?  !email || !password || loading
+                            : !name || !email || !secret || !password || loading
 
                         } className="btn btn-primary col-12 ">
                             {loading ? <SyncOutlined spin /> :  "Submit"} </button>

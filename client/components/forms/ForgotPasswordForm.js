@@ -65,7 +65,7 @@ const ForgotPasswordForm = ({
                         </>
 
                         <div className="form-group p-2">
-                        <button disabled={ !email || !newPassword || !secret} className="btn btn-primary col-12 ">
+                        <button disabled={ !email || !newPassword || !secret || loading} className="btn btn-primary col-12 ">
                             {loading ? <SyncOutlined spin /> :  "Submit"} </button>
                         </div>
                     </form>

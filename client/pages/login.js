@@ -26,14 +26,21 @@ const Login = () => {
             email,
             password,
         });
-        // console.log(data);
 
-        // Save authentication data to local storage
-        window.localStorage.setItem("auth", JSON.stringify(data));
+        if (data.error){
+            toast.error(data.error);
+            setLoading(false);
+        }
+        else{
+            // console.log(data);
 
-        // Redirect to the home page
-        router.reload();
-        window.location.href = '/';
+            // Save authentication data to local storage
+            window.localStorage.setItem("auth", JSON.stringify(data));
+
+            // Redirect to the home page
+            router.reload();
+            window.location.href = '/';
+        }
         } 
         catch (err) {
             setLoading(false);
