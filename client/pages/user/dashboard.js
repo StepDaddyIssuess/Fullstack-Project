@@ -9,8 +9,13 @@ import { toast } from "react-toastify";
 
 const Home = () => {
     const [state, setState] = useContext(UserContext);
+
     // State 
     const [content, setContent] = setState("");
+    const [image, setImage] = setState({});
+    const [upLoading, setUpLoading] = setState(false);
+
+
     // Router
     const router = useRouter();
 
@@ -18,7 +23,7 @@ const Home = () => {
         e.preventDefault();
 
         try {
-            const { data } = await axios.post("/create-post", { content });
+            const { data } = await axios.post("/create-post", { content, image });
 
             console.log("Data =>", data)
 
@@ -28,10 +33,30 @@ const Home = () => {
             else {
                 toast.success("Post Created");
                 setContent("");
+                setImage({});
             }
         }
         catch (error) {
             console.log(error);
+        }
+    }
+
+    const handleImage = async (e) => {
+        const file = e.target.files[0];
+        let formData = new FormData();
+        formData.append("image", file);
+
+        setUpLoading(true);
+        try {
+            const { data } = await axios.post("/upload-image", formData);
+            setImage({ url: data.url, public_id: data.public_id });
+            console.log("Data =>", data)
+            console.log(file)
+
+        }
+        catch (error) {
+            console.log(error);
+            setUpLoading(false);
         }
     }
 
@@ -47,10 +72,13 @@ const Home = () => {
 
                 <div className="row py-3">
                     <div className="col-md-8">
-                        <CreatePostForm 
-                         content={content}
-                         setContent={setContent}
-                         postSubmit={postSubmit}
+                        <CreatePostForm
+                            content={content}
+                            setContent={setContent}
+                            postSubmit={postSubmit}
+                            handleImage={handleImage}
+                            image={image}
+                            upLoading={upLoading}
                         />
                     </div>
                     <div className="col-md-4">
