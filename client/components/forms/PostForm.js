@@ -33,6 +33,8 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
                         value={editorContent}
                         onChange={handleEditorChange}
                         placeholder="Write something..."
+                        style={{ height: "135px" }}
+
                         modules={{
                             toolbar: [
                                 [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
