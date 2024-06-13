@@ -7,6 +7,8 @@ import { HeartFilled, HeartOutlined, CommentOutlined, EditOutlined, DeleteOutlin
 import { UserContext } from "../../context"
 import { useRouter } from "next/router";
 import PostForm from "../forms/PostForm";
+import ReactHtmlParser from 'html-react-parser';
+
 
 
 
@@ -40,7 +42,7 @@ const PostList = ({ posts, handleDelete }) => {
                         </div>
                         <div className="card-body">
                             <div>
-                                {post.content}
+                                {ReactHtmlParser(post.content)}
                             </div>
                         </div>
 

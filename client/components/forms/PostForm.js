@@ -2,10 +2,8 @@ import { Avatar } from "antd"
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Editor, EditorState, ContentState } from 'draft-js';
-import 'draft-js/dist/Draft.css'; // Import Draft.js CSS
 
 
 
@@ -14,25 +12,42 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
 
 
 
-    const [editorState, setEditorState] = useState(
-        () => EditorState.createWithContent(ContentState.createFromText(content))
-    );
+    const [editorContent, setEditorContent] = useState(content);
 
-    const handleEditorChange = (newEditorState) => {
-        setEditorState(newEditorState);
-        setContent(newEditorState.getCurrentContent().getPlainText()); // Update content state
+    useEffect(() => {
+        setEditorContent(content);
+    }, [content])
+
+    const handleEditorChange = (content) => {
+        setEditorContent(content);
+        setContent(content);
     };
 
 
 
     return (
-        <div className="card">
+        <div className="card mb-5">
             <div className="card-body pb-3">
-                <form className="form-group">
-                    <Editor
-                        editorState={editorState}
+                <form className="form-group editor-container">
+                    <ReactQuill
+                        value={editorContent}
                         onChange={handleEditorChange}
                         placeholder="Write something..."
+                        modules={{
+                            toolbar: [
+                                [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                ['link',],
+                                [{ 'align': [] }],
+                                ['clean'],
+                            ],
+                        }}
+                        formats={[
+                            'header', 'font', 'size',
+                            'bold', 'italic', 'underline', 'strike', 'blockquote',
+                            'list', 'bullet', 'link',
+                        ]}
                     />
                 </form>
             </div>
@@ -50,7 +65,7 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
                             (<Avatar size={30} src={image.url} className="mt-1" />) :
                             upLoading ?
                                 (<LoadingOutlined spin />) :
-                                (<CameraOutlined className="mt-2" role="button" />)
+                                (<CameraOutlined className="mt-2 h5" role="button" />)
                     }
                     <input onChange={handleImage} type="file" accept="images/*" hidden />
                 </label>

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
 import UserRoute from "../../components/routes/UserRoute";
 import PostForm from "../../components/forms/PostForm";
@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
+import People from "../../components/cards/People";
+import { Modal, Button } from 'react-bootstrap';
 
 const Home = () => {
     const [state, setState] = useContext(UserContext);
@@ -15,9 +17,11 @@ const Home = () => {
     const [image, setImage] = useState({});
     const [upLoading, setUpLoading] = useState(false);
     const [people, setPeople] = useState([]);
-
     const [posts, setPosts] = useState([]);
 
+    // Modal state
+    const [showModal, setShowModal] = useState(false);
+    const [postToDelete, setPostToDelete] = useState(null);
 
     // Router
     const router = useRouter();
@@ -25,23 +29,22 @@ const Home = () => {
     // Effect 
     useEffect(() => {
         if (state && state.token) {
-            fetchUserPosts()
-            findPeople()
-        };
-    }, [state && state.token])
+            fetchUserPosts();
+            findPeople();
+        }
+    }, [state && state.token]);
 
     // Functions
 
     const fetchUserPosts = async () => {
         try {
             const { data } = await axios.get("/user-posts");
-            // console.log("Data =>", data)
             setPosts(data);
         }
         catch (err) {
             console.log(err);
         }
-    }
+    };
 
     const findPeople = async () => {
         try {
@@ -51,7 +54,7 @@ const Home = () => {
         catch (err) {
             console.log(err);
         }
-    }
+    };
 
     const postSubmit = async (e) => {
         e.preventDefault();
@@ -59,10 +62,8 @@ const Home = () => {
         try {
             const { data } = await axios.post("/create-post", { content, image });
 
-            console.log("Data =>", data)
-
             if (data.error) {
-                toast.error(data.error)
+                toast.error(data.error);
             }
             else {
                 toast.success("Post Created");
@@ -74,7 +75,7 @@ const Home = () => {
         catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const handleImage = async (e) => {
         const file = e.target.files[0];
@@ -85,29 +86,34 @@ const Home = () => {
         try {
             const { data } = await axios.post("/upload-image", formData);
             setImage({ url: data.url, public_id: data.public_id });
-            console.log("Data =>", data)
-            console.log(file)
-
         }
         catch (error) {
             console.log(error);
             setUpLoading(false);
         }
-    }
+    };
 
-    const handleDelete = async (post) => {
+    const handleDelete = async () => {
         try {
-            const answer = window.confirm("Are you sure you want to delete?")
-            if (!answer) return;
-            const { data } = await axios.delete(`/delete-post/${post._id}`)
+            const { data } = await axios.delete(`/delete-post/${postToDelete._id}`);
             toast.error("Post Deleted!");
             fetchUserPosts();
+            setShowModal(false); // Close modal after successful deletion
         }
         catch (error) {
             console.log(error);
         }
-    }
+    };
 
+    const openDeleteModal = (post) => {
+        setPostToDelete(post);
+        setShowModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setShowModal(false);
+        setPostToDelete(null);
+    };
 
     return (
         <UserRoute>
@@ -129,21 +135,32 @@ const Home = () => {
                             upLoading={upLoading}
                         />
 
-                        <PostList posts={posts} handleDelete={handleDelete} />
+                        <PostList posts={posts} handleDelete={openDeleteModal} />
                     </div>
 
-                    {/* <pre>
-                        {JSON.stringify(posts, null, 4)}
-                    </pre> */}
-
                     <div className="col-md-4">
-                        <pre>{JSON.stringify(people, null, 4)}</pre>
+                        <People people={people} />
                     </div>
                 </div>
             </div>
-        </UserRoute>
+
+            {/* Modal for Delete Confirmation */}
+            <Modal show={showModal} onHide={closeDeleteModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeDeleteModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={handleDelete}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </UserRoute >
     );
 };
-
 
 export default Home;
