@@ -6,17 +6,22 @@ dotenv.config();
 
 const router = express.Router();
 // Controllers
-const { createPost, createImage } = require("../controllers/posts");
+const { createPost, createImage, postsByUser, userPost, updatePost, deletePost } = require("../controllers/posts");
 
 // Middleware
-const { requireSignin } = require('../middleware');
+const { requireSignin, canEditDeletePost } = require('../middleware');
 
 
 
 router.post("/create-post", requireSignin, createPost);
 router.post("/upload-image",
-              requireSignin,
-              formidable({ maxFileSize: 5 * 1024 * 1024}),
-              createImage);
+    requireSignin,
+    formidable({ maxFileSize: 5 * 1024 * 1024 }),
+    createImage);
+router.get("/user-posts", requireSignin, postsByUser);
+router.get("/user-post/:_id", requireSignin, userPost);
+router.put("/update-post/:_id", requireSignin, canEditDeletePost, updatePost)
+router.delete("/delete-post/:_id", requireSignin, canEditDeletePost, deletePost)
+
 
 module.exports = router;

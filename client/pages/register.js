@@ -1,4 +1,4 @@
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
@@ -24,34 +24,34 @@ const Register = () => {
         setLoading(true);
         // console.log(name, email, password, secret);
         try {
-            const { data} = await axios.post(`/register`, {
-            name,
-            email,
-            password,
-            secret,
-        });
+            const { data } = await axios.post(`/register`, {
+                name,
+                email,
+                password,
+                secret,
+            });
 
-        if (data.error){
-            toast.error(data.error);
-            setLoading(false);
+            if (data.error) {
+                toast.error(data.error);
+                setLoading(false);
+            }
+            else {
+                setName("");
+                setEmail("");
+                setPassword("");
+                setSecret("");
+                setOk(data.ok);
+                setLoading(false);
+            }
+
         }
-        else {
-            setName("");
-            setEmail("");
-            setPassword("");
-            setSecret("");
-            setOk(data.ok);
-            setLoading(false);
-        }
-        
-        } 
         catch (err) {
             setLoading(false);
-            toast.error(err.response.data);
+            toast.error("Something went wrong, please try again");
         }
     }
 
-    if (state && state.token) { router.push("/")};
+    if (state && state.token) { router.push("/") };
 
     return (
         <div className="container-fluid">
@@ -63,35 +63,36 @@ const Register = () => {
 
             <div className="row py-5">
                 <div className="col-md-6 offset-md-3">
-                    <AuthForm 
-                    handleSubmit={handleSubmit}
-                    name={name}
-                    setName={setName}
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    secret={secret}
-                    setSecret={setSecret}
-                    loading={loading}
+                    <AuthForm
+                        handleSubmit={handleSubmit}
+                        name={name}
+                        setName={setName}
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        secret={secret}
+                        setSecret={setSecret}
+                        loading={loading}
+                        register={"register"}
                     />
                 </div>
             </div>
 
             <div className="row">
                 <div className="col">
-                
-                <Modal
-                    title="Congratulations!"
-                    open={ok}
-                    onCancel={() => setOk(false)}
-                    footer={null}
+
+                    <Modal
+                        title="Congratulations!"
+                        open={ok}
+                        onCancel={() => setOk(false)}
+                        footer={null}
                     >
-                    <p>You have successfully registered.</p>
-                    <Link href="/login">
-                    <span className="btn btn-primary">Login</span>
-                    </Link>
-                </Modal>
+                        <p>You have successfully registered.</p>
+                        <Link href="/login">
+                            <span className="btn btn-primary">Login</span>
+                        </Link>
+                    </Modal>
                 </div>
             </div>
 

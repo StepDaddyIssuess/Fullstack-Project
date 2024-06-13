@@ -1,29 +1,30 @@
 const User = require("../models/user");
-const { hashPassword, comparePassword} = require("../helpers/auth");
+const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv');
 
+
 dotenv.config();
 
-const register =  async (req, res) => {
+const register = async (req, res) => {
     // console.log("Register endpoint =>", req.body);
 
     // Destructuring req.body
     const { name, email, password, secret } = req.body;
-    
+
     //Validation
-    if(!name) {
+    if (!name) {
         return res.json({
             error: "Name is required"
         })
     };
 
-    if(!password || password.length < 6) {
+    if (!password || password.length < 6) {
         return res.json({
             error: "Password is required and must be at least 6 characters"
         })
     };
-    
+
     if (!secret) {
         return res.json({
             error: "Secret is required."
@@ -32,7 +33,7 @@ const register =  async (req, res) => {
 
     // check if email already exists
     const exist = await User.findOne({ email });
-    if(exist) {
+    if (exist) {
         return res.json({
             error: "Email already exists"
         })
@@ -41,24 +42,25 @@ const register =  async (req, res) => {
     // Hash the password
 
     const hashedPassword = await hashPassword(password);
-
+    const { nanoid } = await import('nanoid');
     // Create a new user
     const user = new User({
         name,
         email,
-        password:  hashedPassword,
+        password: hashedPassword,
         secret,
+        username: nanoid(6),
     })
 
     // Save the user to database
     try {
         await user.save();
-        console.log("REGISTERED USE =>" , user)
+        console.log("REGISTERED USE =>", user)
         return res.json({
             ok: true,
         });
     }
-    catch(err) {
+    catch (err) {
         console.log("REGISTER FAILED => ", err);
         return res.json({
             error: "Error. Try again."
@@ -69,14 +71,14 @@ const register =  async (req, res) => {
 
 
 // Login 
-const login =  async (req, res) => {
-    try{
+const login = async (req, res) => {
+    try {
         // Destructuring req.body
         const { email, password } = req.body;
 
         // Check if the email exists
-        const user = await User.findOne({ email: email})
-        if(!user) {
+        const user = await User.findOne({ email: email })
+        if (!user) {
             return res.json({
                 error: "User not found."
             });
@@ -84,19 +86,19 @@ const login =  async (req, res) => {
 
         // Check password
         const match = await comparePassword(password, user.password);
-        if(!match) {
+        if (!match) {
             return res.json({
                 error: "Wrong password."
             })
         };
 
         // Create a token
-        const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET, {expiresIn: "7d"});
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
         // password and secret undifned
         user.password = undefined;
         user.secret = undefined;
-    
+
         // Send user to frontend
         res.json({
             token,
@@ -116,11 +118,11 @@ const currentUser = async (req, res) => {
         // Try to find the user based on the token Id provided
         const user = await User.findById(req.auth._id);
         // console.log(req.auth);
-        
+
 
         // once we found the user, send json respone
         // res.json(user);
-        res.json({ ok: true});
+        res.json({ ok: true });
     }
     catch (error) {
         console.log(error);
@@ -133,33 +135,33 @@ const forgotPassword = async (req, res) => {
     const { email, newPassword, secret } = req.body;
 
     //validation
-    if (!newPassword || newPassword < 6){
+    if (!newPassword || newPassword < 6) {
         return res.json({
             error: "New Password is required and should be min 6 characters long."
         })
     }
-    if (!secret){
+    if (!secret) {
         return res.json({
             error: "Secret is required."
         })
     }
 
     // check if email exists
-    const user = await User.findOne({ email, secret});
-    if (!user){
+    const user = await User.findOne({ email, secret });
+    if (!user) {
         return res.json({
             error: "User not found."
         })
     }
 
-    try{
+    try {
         const hashed = await hashPassword(newPassword);
-        await User.findByIdAndUpdate(user._id, { password: hashed})
+        await User.findByIdAndUpdate(user._id, { password: hashed })
         return res.json({
             success: "Congrats! now you can login with your new password."
         })
     }
-    catch (err){
+    catch (err) {
         console.log(err);
         return res.json({
             error: "Something wrong, try again."
@@ -167,9 +169,81 @@ const forgotPassword = async (req, res) => {
     }
 }
 
+const profileUpdate = async (req, res) => {
+    try {
+        // console.log(req.body)
+        const data = {};
+
+        // Validate and if validated put in data
+        if (req.body.username) {
+            data.username = req.body.username;
+        };
+
+        if (req.body.about) {
+            data.about = req.body.about;
+        }
+
+        if (req.body.name) {
+            data.name = req.body.name;
+        }
+
+        if (req.body.password) {
+            if (req.body.password < 6) {
+                return res.json({
+                    error: "Password is required and must be at least 6 characters"
+                })
+            }
+            else {
+                data.password = await hashPassword(req.body.password);
+            }
+        }
+
+        if (req.body.secret) {
+            data.secret = req.body.secret;
+        }
+
+        if (req.body.image) {
+            data.image = req.body.image;
+        }
+
+        // Update 
+
+        let user = await User.findByIdAndUpdate(req.auth._id, data, { new: true })
+        user.password = undefined;
+        user.secret = undefined;
+        // console.log(user);
+
+        res.json(user);
+
+    }
+    catch (err) {
+        if (err.code === 11000) {
+            return res.json({
+                error: "Duplication error, Something wrong"
+            })
+        }
+        console.log(err);
+    }
+}
+
+const findPeople = async (req, res) => {
+    try {
+        const user = await User.findById(req.auth._id);
+        // Follwing people
+        let following = user.following;
+        // console.log(user._id)
+        following.push(user._id);
+
+        const people = await User.find({ _id: { $nin: following } }).limit(10);
+        res.json(people);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 
 
-module.exports = { register, login, currentUser, forgotPassword };
+module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople };
 
 

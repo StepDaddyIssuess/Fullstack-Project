@@ -1,23 +1,57 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context";
 import UserRoute from "../../components/routes/UserRoute";
-import CreatePostForm from "../../components/forms/CreatePostForm";
+import PostForm from "../../components/forms/PostForm";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import PostList from "../../components/cards/PostList";
 
 const Home = () => {
     const [state, setState] = useContext(UserContext);
 
     // State 
-    const [content, setContent] = setState("");
-    const [image, setImage] = setState({});
-    const [upLoading, setUpLoading] = setState(false);
+    const [content, setContent] = useState("");
+    const [image, setImage] = useState({});
+    const [upLoading, setUpLoading] = useState(false);
+    const [people, setPeople] = useState([]);
+
+    const [posts, setPosts] = useState([]);
 
 
     // Router
     const router = useRouter();
+
+    // Effect 
+    useEffect(() => {
+        if (state && state.token) {
+            fetchUserPosts()
+            findPeople()
+        };
+    }, [state && state.token])
+
+    // Functions
+
+    const fetchUserPosts = async () => {
+        try {
+            const { data } = await axios.get("/user-posts");
+            // console.log("Data =>", data)
+            setPosts(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const findPeople = async () => {
+        try {
+            const { data } = await axios.get("/find-people");
+            setPeople(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     const postSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +68,7 @@ const Home = () => {
                 toast.success("Post Created");
                 setContent("");
                 setImage({});
+                fetchUserPosts();
             }
         }
         catch (error) {
@@ -60,6 +95,19 @@ const Home = () => {
         }
     }
 
+    const handleDelete = async (post) => {
+        try {
+            const answer = window.confirm("Are you sure you want to delete?")
+            if (!answer) return;
+            const { data } = await axios.delete(`/delete-post/${post._id}`)
+            toast.error("Post Deleted!");
+            fetchUserPosts();
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <UserRoute>
@@ -72,7 +120,7 @@ const Home = () => {
 
                 <div className="row py-3">
                     <div className="col-md-8">
-                        <CreatePostForm
+                        <PostForm
                             content={content}
                             setContent={setContent}
                             postSubmit={postSubmit}
@@ -80,9 +128,16 @@ const Home = () => {
                             image={image}
                             upLoading={upLoading}
                         />
+
+                        <PostList posts={posts} handleDelete={handleDelete} />
                     </div>
+
+                    {/* <pre>
+                        {JSON.stringify(posts, null, 4)}
+                    </pre> */}
+
                     <div className="col-md-4">
-                        SideBar
+                        <pre>{JSON.stringify(people, null, 4)}</pre>
                     </div>
                 </div>
             </div>

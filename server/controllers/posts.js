@@ -32,7 +32,7 @@ const createPost = async (req, res) => {
 }
 
 const createImage = async (req, res) => {
-    console.log(req.files);
+    // console.log(req.files);
     try {
         if (!req.files || !req.files.image || !req.files.image.path) {
             return res.json({
@@ -40,7 +40,7 @@ const createImage = async (req, res) => {
             });
         } else {
             const result = await cloudinary.uploader.upload(req.files.image.path);
-            console.log("UPLOADED IMAGE URL =>", result);
+            // console.log("UPLOADED IMAGE URL =>", result);
             res.json({
                 url: result.secure_url,
                 public_id: result.public_id,
@@ -52,7 +52,64 @@ const createImage = async (req, res) => {
     }
 }
 
+const postsByUser = async (req, res) => {
+    try {
+        // const posts = await Post.find({ postedBy: req.auth._id })
+        const posts = await Post.find()
+            .populate("postedBy", "_id name image")
+            .sort({ createdAt: -1 })
+            .limit(10);
+        // console.log(posts)
+        res.json(posts);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+const userPost = async (req, res) => {
+    console.log(req.params)
+    try {
+        const post = await Post.findById(req.params._id);
+        console.log(post)
+        res.json(post);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+const updatePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndUpdate(req.params._id, req.body, { new: true });
+        res.json(post);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const deletePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete(req.params._id)
+        // Remove the image from cloudinary
+        if (post.image && post.image.public_id) {
+            let image = await cloudinary.uploader.destroy(post.image.public_id);
+        }
+        res.json({ ok: true });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     createPost,
-    createImage
+    createImage,
+    postsByUser,
+    userPost,
+    updatePost,
+    deletePost
 }

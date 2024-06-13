@@ -24,10 +24,18 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     about: {},
-    photo: String,
-    following: [{type: Schema.Types.ObjectId, ref: "User"}],
-    followers: [{type: Schema.Types.ObjectId, ref: "User"}]
-}, {timeStamp: true });
+    image: {
+        url: String,
+        public_id: String,
+    },
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }]
+}, { timeStamp: true });
 
 module.exports = mongoose.model("User", userSchema);

@@ -2,19 +2,37 @@ import { Avatar } from "antd"
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
+import React, { useState } from 'react';
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Editor, EditorState, ContentState } from 'draft-js';
+import 'draft-js/dist/Draft.css'; // Import Draft.js CSS
 
-const CreatePostForm = ({ content, setContent, postSubmit, handleImage, image, upLoading }) => {
+
+
+
+const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoading }) => {
+
+
+
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createWithContent(ContentState.createFromText(content))
+    );
+
+    const handleEditorChange = (newEditorState) => {
+        setEditorState(newEditorState);
+        setContent(newEditorState.getCurrentContent().getPlainText()); // Update content state
+    };
+
+
+
     return (
         <div className="card">
             <div className="card-body pb-3">
                 <form className="form-group">
-                    <ReactQuill
-                        theme="snow"
-                        className="form-control"
+                    <Editor
+                        editorState={editorState}
+                        onChange={handleEditorChange}
                         placeholder="Write something..."
-                        value={content}
-                        onChange={(e) => setContent(e)}
                     />
                 </form>
             </div>
@@ -41,4 +59,4 @@ const CreatePostForm = ({ content, setContent, postSubmit, handleImage, image, u
     )
 }
 
-export default CreatePostForm;
+export default PostForm;

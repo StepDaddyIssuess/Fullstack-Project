@@ -1,8 +1,7 @@
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../context";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Modal } from "antd";
 import Link from "next/link";
 import AuthForm from "../components/forms/AuthForm";
 import { useRouter } from "next/router";
@@ -22,35 +21,35 @@ const Login = () => {
         setLoading(true);
         // console.log(name, email, password, secret);
         try {
-            const { data} = await axios.post(`/login`, {
-            email,
-            password,
-        });
+            const { data } = await axios.post(`/login`, {
+                email,
+                password,
+            });
 
-        if (data.error){
-            toast.error(data.error);
-            setLoading(false);
+            if (data.error) {
+                toast.error(data.error);
+                setLoading(false);
+            }
+            else {
+                // console.log(data);
+
+                // Save authentication data to local storage
+                window.localStorage.setItem("auth", JSON.stringify(data));
+
+                // Redirect to the home page
+                router.reload();
+                window.location.href = '/user/dashboard';
+            }
         }
-        else{
-            // console.log(data);
-
-            // Save authentication data to local storage
-            window.localStorage.setItem("auth", JSON.stringify(data));
-
-            // Redirect to the home page
-            router.reload();
-            window.location.href = '/';
-        }
-        } 
         catch (err) {
             setLoading(false);
             toast.error("Email or Password is incorrect");
         }
 
-        
+
     }
 
-    if (state && state.token) { router.push("/")};
+    if (state && state.token) { router.push("/") };
 
     return (
         <div className="container-fluid">
@@ -62,14 +61,14 @@ const Login = () => {
 
             <div className="row py-5">
                 <div className="col-md-6 offset-md-3">
-                    <AuthForm 
-                    handleSubmit={handleSubmit}
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    loading={loading}
-                    page="login"
+                    <AuthForm
+                        handleSubmit={handleSubmit}
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        loading={loading}
+                        page="login"
                     />
                 </div>
             </div>
@@ -86,7 +85,7 @@ const Login = () => {
                 <div className="col">
                     <p className="text-center">
                         <Link href="/forgot-password">
-                             Forgot Password?                       
+                            Forgot Password?
                         </Link>
                     </p>
                 </div>
