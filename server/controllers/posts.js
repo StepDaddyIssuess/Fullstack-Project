@@ -1,4 +1,5 @@
 const Post = require("../models/posts");
+const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -105,11 +106,54 @@ const deletePost = async (req, res) => {
     }
 }
 
+const newsFeed = async (req, res) => {
+    const user = await User.findById(req.auth._id);
+    let following = user.following;
+    following.push(req.auth._id);
+
+    const posts = await Post.find({ postedBy: { $in: following } })
+        .populate("postedBy", "_id name image")
+        .sort({ createdAt: -1 })
+        .limit(10)
+    res.json(posts)
+}
+
+// Like / unlike
+
+const likePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndUpdate(req.body._id, {
+            $addToSet: { likes: req.auth._id }
+        },
+            { new: true })
+        res.json(post);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const unlikePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndUpdate(req.body._id, {
+            $pull: { likes: req.auth._id }
+        },
+            { new: true })
+        res.json(post);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     createPost,
     createImage,
     postsByUser,
     userPost,
     updatePost,
-    deletePost
+    deletePost,
+    newsFeed,
+    likePost,
+    unlikePost,
 }

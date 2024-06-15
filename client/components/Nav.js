@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context";
 import { useRouter } from "next/router";
+import { Avatar } from "antd";
 
 function Nav() {
 
@@ -29,55 +30,59 @@ function Nav() {
 
     return (
 
-        <nav className=" nav d-flex justify-content-between" style={{ backgroundColor: "blue" }}>
-            <Link href="/" className={`nav-link text-light logo ${current === "/" && "active"}`}>
-                FullStackProject
+        <nav className=" nav d-flex justify-content-between"
+            style={{ backgroundColor: "blue" }}>
+            <Link href="/" className={`nav-link text-light logo ${current === "/" && "active"}`} style={{ marginLeft: "2rem" }}>
+                <Avatar src="/images/logo.png" />
+                <span style={{ marginLeft: "10px" }}>FullStackProject</span>
             </Link>
 
 
-            {state !== null ? (
+            {
+                state !== null ? (
 
-                <>
-                    <div className="dropdown show p-1 h5 dropdown-bg
+                    <>
+                        <div className="dropdown show p-1 h5 dropdown-bg
                      " style={{ marginRight: "2rem" }}>
-                        <a className="dropdown-toggle text-light " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <strong>{state && state.user && state.user.name}</strong>
-                        </a>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a className="dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong className="fs-5 text">{state && state.user && state.user.name}</strong>
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                            <Link href="/user/dashboard" className="nav-link dropdown-item ">
-                                Dashboard
-                            </Link>
+                                <Link href="/user/dashboard" className="nav-link dropdown-item ">
+                                    Dashboard
+                                </Link>
 
-                            <Link href="/user/profile/update" className="nav-link dropdown-item ">
-                                Profile
-                            </Link>
+                                <Link href="/user/profile/update" className="nav-link dropdown-item ">
+                                    Profile
+                                </Link>
 
-                            <a className="nav-link dropdown-item" onClick={logout}>Logout</a>
+                                <a className="nav-link dropdown-item" onClick={logout}>Logout</a>
+                            </div>
                         </div>
-                    </div>
-                </>
+                    </>
 
-            ) : (
-                <>
-                    <Link href="/login" className={`nav-link text-light ${current === "/login" && "active"}`}>
-                        Login
-                    </Link>
+                ) : (
+                    <>
+                        <Link href="/login" className={`nav-link text-light ${current === "/login" && "active"}`} style={{ fontSize: "20px" }}>
+                            Login
+                        </Link>
 
 
-                    <Link href="/register" className={`nav-link text-light ${current === "/register" && "active"}`}>
-                        Register
-                    </Link>
-                </>
+                        <Link href="/register" className={`nav-link text-light ${current === "/register" && "active"}`} style={{ marginRight: "2rem", fontSize: "20px" }}>
+                            Register
+                        </Link>
+                    </>
 
-            )}
+                )
+            }
 
 
 
             { }
 
 
-        </nav>
+        </nav >
     )
 }
 

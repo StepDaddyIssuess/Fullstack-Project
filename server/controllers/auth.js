@@ -2,6 +2,7 @@ const User = require("../models/user");
 const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv');
+const user = require("../models/user");
 
 
 dotenv.config();
@@ -234,8 +235,52 @@ const findPeople = async (req, res) => {
         // console.log(user._id)
         following.push(user._id);
 
-        const people = await User.find({ _id: { $nin: following } }).limit(10);
+        const people = await User.find({ _id: { $nin: following } }).select("-password -secret").limit(10);
         res.json(people);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+// userFollow
+
+const userFollow = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.auth._id,
+            { $addToSet: { following: req.body._id } },
+            { new: true }
+        ).select("-password -secret")
+        res.json(user);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const userFollowing = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.auth._id);
+
+        let following = await User.find({ _id: user.following })
+            .limit(100)
+
+        res.json(following);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const userUnfollow = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.auth._id, {
+            $pull: { following: req.body._id }
+        },
+            { new: true }
+        )
+        console.log(user)
+        res.json(user);
     }
     catch (err) {
         console.log(err);
@@ -244,6 +289,6 @@ const findPeople = async (req, res) => {
 
 
 
-module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople };
+module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow };
 
 

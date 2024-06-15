@@ -6,24 +6,27 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "antd/dist/antd.css";
 import "../public/css/styles.css";
+import "../public/css/home.css"
+import "../public/css/login.css"
+import "../public/css/register.css"
 
 
-function Myapp({ Component, pageProps}) {
+function Myapp({ Component, pageProps }) {
     return (
         <UserProvider>
-         <>
-            <Head>
-                {/* <link rel="stylesheet" href="css/styles.css" /> */}
-            </Head>
+            <>
+                <Head>
+                    {/* <link rel="stylesheet" href="css/styles.css" /> */}
+                </Head>
 
-            <Nav />
+                <Nav />
 
-            <ToastContainer 
-            position="top-center"
-            />
+                <ToastContainer
+                    position="top-center"
+                />
 
-            <Component {...pageProps} />
-         </>
+                <Component {...pageProps} />
+            </>
         </UserProvider>
     )
 }

@@ -8,13 +8,14 @@ import { UserContext } from "../../context"
 import { useRouter } from "next/router";
 import PostForm from "../forms/PostForm";
 import ReactHtmlParser from 'html-react-parser';
+import { imageSource } from "../../functions";
 
 
 
 
 
 
-const PostList = ({ posts, handleDelete }) => {
+const PostList = ({ posts, handleDelete, handleLike, handleUnlike }) => {
 
     const [state] = useContext(UserContext);
     const router = useRouter();
@@ -26,9 +27,11 @@ const PostList = ({ posts, handleDelete }) => {
                     <div key={posts._id} className="card mb-5">
                         <div className="card-header">
                             <div>
-                                <Avatar size={40}>
+                                {/* <Avatar size={40}>
                                     {post.postedBy.name[0]}
-                                </Avatar>
+                                </Avatar> */}
+
+                                <Avatar size={40} src={imageSource(post.postedBy)} />
 
                                 <span style={{ marginLeft: "1rem" }}>
                                     {post.postedBy.name}
@@ -55,15 +58,25 @@ const PostList = ({ posts, handleDelete }) => {
 
                             <div className="pt-2 d-flex justify-content-between">
                                 <div className="d-flex">
-                                    <HeartOutlined className="text-danger  h5" style={{
-                                        marginRight: "0.5rem",
-                                        marginTop: "0.5rem"
-                                    }}
-                                        role="button"
-                                    />
-                                    <div className="pt-2 px-3">3 likes</div>
+                                    {post.likes.includes(state.user._id)
+                                        ? <HeartFilled
+                                            onClick={() => handleUnlike(post._id)}
+                                            className="text-danger  h5" style={{
+                                                marginRight: "0.5rem",
+                                                marginTop: "0.5rem"
+                                            }}
+                                            role="button"
+                                        /> : <HeartOutlined
+                                            onClick={() => handleLike(post._id)}
+                                            className="text-danger  h5" style={{
+                                                marginRight: "0.5rem",
+                                                marginTop: "0.5rem"
+                                            }}
+                                            role="button"
+                                        />}
+                                    <div className="pt-2 ">{post.likes.length} likes</div>
                                     <CommentOutlined className="text-danger h5" style={{ marginLeft: "1rem", marginRight: "0.5rem", marginTop: "0.5rem" }} role="button" />
-                                    <div className="pt-2 px-3">2 comments</div>
+                                    <div className="pt-2">2 comments</div>
                                 </div>
 
                                 <div className="">

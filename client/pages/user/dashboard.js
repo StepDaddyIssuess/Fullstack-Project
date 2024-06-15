@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
-import People from "../../components/cards/people";
+import People from "../../components/cards/People";
 import { Modal, Button } from 'react-bootstrap';
-
+import Link from "next/link";
 const Home = () => {
     const [state, setState] = useContext(UserContext);
 
@@ -29,16 +29,16 @@ const Home = () => {
     // Effect 
     useEffect(() => {
         if (state && state.token) {
-            fetchUserPosts();
+            newsFeed();
             findPeople();
         }
     }, [state && state.token]);
 
     // Functions
 
-    const fetchUserPosts = async () => {
+    const newsFeed = async () => {
         try {
-            const { data } = await axios.get("/user-posts");
+            const { data } = await axios.get("/news-feed");
             setPosts(data);
         }
         catch (err) {
@@ -69,7 +69,7 @@ const Home = () => {
                 toast.success("Post Created");
                 setContent("");
                 setImage({});
-                fetchUserPosts();
+                newsFeed();
             }
         }
         catch (error) {
@@ -97,7 +97,7 @@ const Home = () => {
         try {
             const { data } = await axios.delete(`/delete-post/${postToDelete._id}`);
             toast.error("Post Deleted!");
-            fetchUserPosts();
+            newsFeed();
             setShowModal(false); // Close modal after successful deletion
         }
         catch (error) {
@@ -114,6 +114,50 @@ const Home = () => {
         setShowModal(false);
         setPostToDelete(null);
     };
+
+    const handleFollow = async (user) => {
+        // console.log("add this user to the following list", user);
+        try {
+            const { data } = await axios.put("user-follow", { _id: user._id })
+
+            // Update local storage, update user , keep token
+            let auth = JSON.parse(localStorage.getItem("auth"));
+            auth.user = data;
+            localStorage.setItem("auth", JSON.stringify(auth));
+            // update context
+            setState({ ...state, user: data });
+            // update people state
+            setPeople(prevPeople => prevPeople.filter((p) => p._id !== user._id));
+            // Success
+            newsFeed() // Reloading the feed
+            toast.success(`Following ${user.username}`);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleLike = async (_id) => {
+        try {
+            const { data } = await axios.put("/like-post", { _id });
+            // console.log("liked => ", data);
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleUnlike = async (_id) => {
+        try {
+            const { data } = await axios.put("/unlike-post", { _id });
+            // console.log("unliked => ", data);
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <UserRoute>
@@ -135,11 +179,30 @@ const Home = () => {
                             upLoading={upLoading}
                         />
 
-                        <PostList posts={posts} handleDelete={openDeleteModal} />
+                        <PostList
+                            posts={posts}
+                            handleDelete={openDeleteModal}
+                            handleLike={handleLike}
+                            handleUnlike={handleUnlike}
+                        />
                     </div>
 
                     <div className="col-md-4">
-                        <People people={people} />
+                        {state && state.user && state.user.following &&
+                            <Link href={`/user/following`}>
+                                <span className="h6">
+                                    Following {state.user.following.length}
+                                </span>
+                            </Link>
+                        }
+                        {state && state.user && state.user.followers &&
+                            <Link href={"/user/followers"} style={{ marginLeft: "2rem" }}>
+                                <span className="h6">
+                                    Followers {state.user.followers.length}
+                                </span>
+                            </Link>
+                        }
+                        <People people={people} handleFollow={handleFollow} />
                     </div>
                 </div>
             </div>

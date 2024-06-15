@@ -7,7 +7,7 @@ export default class MyDocument extends Document {
                 <Head>
                     <meta name="description"
                         content="A site for demonstrating use of _document file" />
-                    <meta http-equiv="Content-Type"
+                    <meta httpEquiv="Content-Type"
                         content="text/html;charset=UTF-8" />
                     <meta name="author"
                         content="GeeksForGeeks" />
@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
                         "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
                         rel="stylesheet" integrity=
                         "sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-                        crossorigin="anonymous" />
+                        crossOrigin="anonymous" />
                 </Head>
                 <body>
                     <Main />

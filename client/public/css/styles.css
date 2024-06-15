@@ -1,10 +1,4 @@
-.bg-default-image {
-    background-image: url("/images/default.jpg");
-    background-size: 100%;
-    background-position: center;
-    height: 150px;
-    text-shadow: 2px 2px 8px #fff;
-}
+
 
 .logo {
     text-shadow: 2px 2px navy;
@@ -30,4 +24,22 @@
     min-height: 200px;
     max-height: 700px;
     overflow-y: auto;
+}
+
+/* People underline */
+
+.people-after{
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+}
+
+.people-border{
+    border: 2px solid #007BFF;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.people-border:hover{
+    background-color: #007BFF;
+    color: white !important;
 }

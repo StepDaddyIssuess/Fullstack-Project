@@ -55,7 +55,7 @@ const Login = () => {
         <div className="container-fluid">
             <div className="row py-5 bg-secondary text-light bg-default-image">
                 <div className="col text-center">
-                    <h1>Login Page</h1>
+                    <h1 className="login-title">Login Page</h1>
                 </div>
             </div>
 
