@@ -9,13 +9,14 @@ import { useRouter } from "next/router";
 import PostForm from "../forms/PostForm";
 import ReactHtmlParser from 'html-react-parser';
 import { imageSource } from "../../functions";
+import Link from "next/link";
 
 
 
 
 
 
-const PostList = ({ posts, handleDelete, handleLike, handleUnlike }) => {
+const PostList = ({ posts, handleDelete, handleLike, handleUnlike, handleComment, addComment, removeComment }) => {
 
     const [state] = useContext(UserContext);
     const router = useRouter();
@@ -75,8 +76,14 @@ const PostList = ({ posts, handleDelete, handleLike, handleUnlike }) => {
                                             role="button"
                                         />}
                                     <div className="pt-2 ">{post.likes.length} likes</div>
-                                    <CommentOutlined className="text-danger h5" style={{ marginLeft: "1rem", marginRight: "0.5rem", marginTop: "0.5rem" }} role="button" />
-                                    <div className="pt-2">2 comments</div>
+                                    <CommentOutlined
+                                        onClick={() => handleComment(post)}
+                                        className="text-danger h5" style={{ marginLeft: "1rem", marginRight: "0.5rem", marginTop: "0.5rem" }} role="button" />
+                                    <div className="pt-2">
+                                        <Link href={`/post/${post._id}`} target="_blank">
+                                            <span className="text-dark" >{post.comments.length} comments</span>
+                                        </Link>
+                                    </div>
                                 </div>
 
                                 <div className="">
@@ -98,6 +105,30 @@ const PostList = ({ posts, handleDelete, handleLike, handleUnlike }) => {
                                 </div>
                             </div>
                         </div>
+                        {post.comments && post.comments.length > 0 && (
+                            <ol className="list-group">
+                                {post.comments.map((c) => (
+                                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                                        <div className="ms-2 me-auto">
+                                            <div>
+                                                <Avatar size={30} className="mb-1 mr-3"
+                                                    src={imageSource(c.postedBy)}
+                                                />
+                                                <span style={{ marginLeft: "0.5rem" }} className="h5">{c.postedBy.name}</span>
+                                            </div>
+
+                                            <div>
+                                                {c.text}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            {moment(c.created).fromNow()}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>
+                        )}
                     </div>
 
                 )

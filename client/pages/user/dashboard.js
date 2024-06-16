@@ -7,8 +7,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
 import People from "../../components/cards/People";
-import { Modal, Button } from 'react-bootstrap';
 import Link from "next/link";
+import { Modal, Button } from 'antd';
+import CommentForm from "../../components/forms/CommentForm";
+
+
+
 const Home = () => {
     const [state, setState] = useContext(UserContext);
 
@@ -19,9 +23,14 @@ const Home = () => {
     const [people, setPeople] = useState([]);
     const [posts, setPosts] = useState([]);
 
-    // Modal state
+    // Modal state Delete post
     const [showModal, setShowModal] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
+
+    // Modal state Add comment
+    const [comment, setComment] = useState("");
+    const [visible, setVisible] = useState(false);
+    const [currentPost, setCurrentPost] = useState({});
 
     // Router
     const router = useRouter();
@@ -159,6 +168,35 @@ const Home = () => {
         }
     }
 
+    const handleComment = (post) => {
+        setCurrentPost(post);
+        setVisible(true);
+    }
+
+    const addComment = async (e) => {
+        e.preventDefault();
+        // console.log("Add comment to this post => ", currentPost._id);
+        // console.log("Save comment in Database", comment)
+        try {
+            const { data } = await axios.put("/add-comment", {
+                comment,
+                postId: currentPost._id
+            })
+            console.log("Add comment", data);
+            setVisible(false);
+            setComment("");
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const removeComment = async () => {
+        //
+    }
+
+
     return (
         <UserRoute>
             <div className="container-fluid">
@@ -184,6 +222,9 @@ const Home = () => {
                             handleDelete={openDeleteModal}
                             handleLike={handleLike}
                             handleUnlike={handleUnlike}
+                            handleComment={handleComment}
+                            removeComment={removeComment}
+                            addComment={addComment}
                         />
                     </div>
 
@@ -208,20 +249,37 @@ const Home = () => {
             </div>
 
             {/* Modal for Delete Confirmation */}
-            <Modal show={showModal} onHide={closeDeleteModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirmation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeDeleteModal}>
+            <Modal
+                title="Confirmation"
+                open={showModal}
+                onCancel={closeDeleteModal}
+                footer={[
+                    <Button key="cancel" onClick={closeDeleteModal}>
                         Cancel
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
+                    </Button>,
+                    <Button key="delete" type="primary" danger onClick={handleDelete}>
                         Delete
                     </Button>
-                </Modal.Footer>
+                ]}
+                centered
+            >
+                <p>Are you sure you want to delete this post?</p>
             </Modal>
+
+            {/* Modal for adding a comment */}
+            <Modal
+                open={visible}
+                onCancel={() => setVisible(false)}
+                title="Comment Section"
+                footer={null}
+            >
+                <CommentForm
+                    addComment={addComment}
+                    comment={comment}
+                    setComment={setComment}
+                />
+            </Modal>
+
         </UserRoute >
     );
 };

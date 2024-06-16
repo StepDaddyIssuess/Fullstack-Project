@@ -11,7 +11,7 @@ const Home = () => {
         <div className="container bg-img">
             <div className="row">
                 <div className="col">
-                    <h1 className="display-1 text-center py-5  text-light home-title">FullStack Project</h1>
+                    <h1 className="display-1 text-center py-5  text-light home-title home--background">FullStack Project</h1>
                     {/* <pre>{JSON.stringify(state)}</pre> */}
                     <div className="row">
 
