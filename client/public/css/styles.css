@@ -1,39 +1,14 @@
-.container {
 
-    text-shadow: 2px 2px 8px #fff;
-    min-height: 100vh;
-    min-width: 100vw;
 
-    display: grid;
-    position: relative;
-}
-.container::after{
-    content:'';
-    position: absolute;
-    background-color: pink;
-    z-index: -1;
-    inset: 0;
-    isolation: isolate;
-    opacity: 1;
-    background-size: cover;
-    background-position: center;
-    background-image: url("../images/pexels-iriser-1366957.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    
-    
-}
 .logo {
     text-shadow: 2px 2px navy;
     text-transform: uppercase;
 }
 
-.active {
-    background-color: navy;
-}
+
 
 .dropdown-bg{
-    background-color: navy !important;
+    background-color: rgb(34, 34, 34) !important;
     padding: 10px !important;
     text-align: center !important;
     margin-bottom: 0;
@@ -58,3 +33,4 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+

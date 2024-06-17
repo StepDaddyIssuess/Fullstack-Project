@@ -14,7 +14,7 @@ import "../public/css/login.css"
 
 function Myapp({ Component, pageProps }) {
     return (
-        <UserProvider>
+        <UserProvider >
             <>
                 <Head>
                     {/* <link rel="stylesheet" href="css/styles.css" /> */}
