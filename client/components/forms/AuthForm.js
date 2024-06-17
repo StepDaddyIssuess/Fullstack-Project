@@ -72,7 +72,7 @@ const AuthForm = ({
                 />
             </div>
 
-            <div className="form-group p-2">
+            <div className="form-group p-2 Nikker">
                 <small>
                     <label className="text-muted">Your Password</label>
                 </small>
