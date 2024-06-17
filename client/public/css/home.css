@@ -1,0 +1,35 @@
+@font-face {
+    font-family: Asquire;
+    src: url(../fonts/asquire/Asquire.otf);
+}
+
+@font-face {
+    font-family:  tommy;
+    src: url(../fonts/made_tommy/MADE\ TOMMY\ Black\ Outline_PERSONAL\ USE.otf);
+}
+
+@font-face {
+    font-family: cafe;
+    src: url(../fonts/this_cafe/This\ Cafe.ttf);
+}
+.home--text{
+    font-size: 100px;
+    font-family: tommy;
+    color: white;
+    text-shadow: 4px 0px 2px black;
+    border: solid 2px white;
+    backdrop-filter: blur(6px);
+    position: absolute;
+    bottom: 400px;
+    padding: 40px;
+}
+
+.col{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+
+/* .nav-link text-light{} */

@@ -1,0 +1,27 @@
+@font-face {
+    font-family: dreams ;
+    src: url(../fonts/caviar_dreams/CaviarDreams.ttf);
+}
+
+.nav--login{
+    color: black;
+    font-size: 20px;
+    font-family: dreams;
+}
+
+.nav--register{
+    color: black;
+    font-size: 20px;
+    font-family: dreams;
+    margin-right: 100px;
+}
+
+.nav-bar{
+    background-color: black;
+}
+
+.nav-fullstackproject{
+    font-size: 18px;
+    font-family: dreams;
+}
+
