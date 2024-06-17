@@ -72,7 +72,9 @@ const postsByUser = async (req, res) => {
 const userPost = async (req, res) => {
     console.log(req.params)
     try {
-        const post = await Post.findById(req.params._id);
+        const post = await Post.findById(req.params._id)
+            .populate("postedBy", "_id name image")
+            .populate("comments.postedBy", "_id name image")
         console.log(post)
         res.json(post);
     }
@@ -166,9 +168,19 @@ const removeComment = async (req, res) => {
     try {
         const { postId, comment } = req.body;
         const post = await Post.findByIdAndUpdate(postId, {
-            $pull: { comment: { _id: comment._id } }
+            $pull: { comments: { _id: comment._id } }
         }, { new: true })
 
+        res.json(post);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const totalPosts = async (req, res) => {
+    try {
+        const post = await Post.find().estimatedDocumentCount();
         res.json(post);
     }
     catch (err) {
@@ -188,4 +200,5 @@ module.exports = {
     unlikePost,
     addComment,
     removeComment,
+    totalPosts
 }

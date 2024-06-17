@@ -192,8 +192,17 @@ const Home = () => {
         }
     }
 
-    const removeComment = async () => {
-        //
+    const removeComment = async (postId, comment) => {
+        let anwser = window.confirm("Are you sure you want to remove!");
+        if (!anwser) return;
+        try {
+            const { data } = await axios.put("/remove-comment", { postId, comment });
+            console.log("Comment Removed", data)
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
 
