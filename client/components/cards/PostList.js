@@ -59,7 +59,7 @@ const PostList = ({ posts, handleDelete, handleLike, handleUnlike, handleComment
 
                             <div className="pt-2 d-flex justify-content-between">
                                 <div className="d-flex">
-                                    {post.likes.includes(state.user._id)
+                                    {state && post.user && post.likes && post.likes.includes(state.user._id)
                                         ? <HeartFilled
                                             onClick={() => handleUnlike(post._id)}
                                             className="text-danger  h5" style={{

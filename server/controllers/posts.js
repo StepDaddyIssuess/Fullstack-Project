@@ -72,7 +72,9 @@ const postsByUser = async (req, res) => {
 const userPost = async (req, res) => {
     console.log(req.params)
     try {
-        const post = await Post.findById(req.params._id);
+        const post = await Post.findById(req.params._id)
+            .populate("postedBy", "_id name image")
+            .populate("comments.postedBy", "_id name image")
         console.log(post)
         res.json(post);
     }
