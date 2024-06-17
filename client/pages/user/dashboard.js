@@ -149,7 +149,7 @@ const Home = () => {
     const handleLike = async (_id) => {
         try {
             const { data } = await axios.put("/like-post", { _id });
-            // console.log("liked => ", data);
+            console.log("liked => ", data);
             newsFeed();
         }
         catch (err) {
@@ -160,7 +160,7 @@ const Home = () => {
     const handleUnlike = async (_id) => {
         try {
             const { data } = await axios.put("/unlike-post", { _id });
-            // console.log("unliked => ", data);
+            console.log("unliked => ", data);
             newsFeed();
         }
         catch (err) {

@@ -20,7 +20,7 @@ import Link from "next/link";
 
 const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, addComment, removeComment, commentCount = 10 }) => {
 
-    const [state] = useContext(UserContext);
+    const [state, setState] = useContext(UserContext);
     const router = useRouter();
 
 
@@ -60,7 +60,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
 
                     <div className="pt-2 d-flex justify-content-between">
                         <div className="d-flex">
-                            {state && post.user && post.likes && post.likes.includes(state.user._id)
+                            {post.likes.includes(state.user._id)
                                 ? <HeartFilled
                                     onClick={() => handleUnlike(post._id)}
                                     className="text-danger  h5" style={{
