@@ -110,7 +110,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                     post.comments && post.comments.length > 0 && (
                         <ol className="list-group" style={{ maxHeight: "165px", overflow: "scroll" }}>
                             {post.comments.slice(0, commentCount).map((c) => (
-                                <li className="list-group-item d-flex justify-content-between align-items-start">
+                                <li className="list-group-item d-flex justify-content-between align-items-start" key={c._id}>
                                     <div className="ms-2 me-auto">
                                         <div>
                                             <Avatar size={30} className="mb-1 mr-3"
