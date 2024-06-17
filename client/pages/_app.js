@@ -6,14 +6,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "antd/dist/antd.css";
 import "../public/css/styles.css";
-import "../public/css/home.css"
-import "../public/css/login.css"
+import "../public/css/home.css";
+import "../public/css/nav.css"
 import "../public/css/register.css"
+import "../public/css/login.css"
 
 
 function Myapp({ Component, pageProps }) {
     return (
-        <UserProvider>
+        <UserProvider >
             <>
                 <Head>
                     {/* <link rel="stylesheet" href="css/styles.css" /> */}

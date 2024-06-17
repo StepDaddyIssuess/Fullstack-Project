@@ -1,63 +1,57 @@
-/* CSS reset */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
-    margin:0;
-    padding:0;
+@font-face {
+    font-family: Asquire;
+    src: url(../fonts/asquire/Asquire.otf);
 }
-html,body {
-    margin:0;
-    padding:0;
+
+@font-face {
+    font-family:  tommy;
+    src: url(../fonts/made_tommy/MADE\ TOMMY\ Black\ Outline_PERSONAL\ USE.otf);
 }
-table {
-    border-collapse:collapse;
-    border-spacing:0;
+
+@font-face {
+    font-family: cafe;
+    src: url(../fonts/this_cafe/This\ Cafe.ttf);
 }
-fieldset,img { 
-    border:0;
-}
-input{
-    border:1px solid #b0b0b0;
-    padding:3px 5px 4px;
-    color:#979797;
-    width:190px;
-}
-address,caption,cite,code,dfn,th,var {
-    font-style:normal;
-    font-weight:normal;
-}
-ol,ul {
-    list-style:none;
-}
-caption,th {
-    text-align:left;
-}
-h1,h2,h3,h4,h5,h6 {
-    font-size:100%;
-    font-weight:normal;
-}
-q:before,q:after {
+
+
+
+
+
+.home--container::after{
     content:'';
-}
-abbr,acronym { border:0;
-}
-
-
-/* Main Styles*/
-
-
-.container {
-    color: #fff;
-}
-
-.home-title{
-    font-size: 5em;
-    font-weight: bolder;
-}
-
-.bg-img{
-    background-image: url("/images/default.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
+    position: absolute;
+    background-color: pink;
+    z-index: -1;
+    inset: 0;
+    isolation: isolate;
+    opacity: 1;
     background-size: cover;
-    min-width: 100%;
-    height: 95vh;
+    background-position: center;
+    background-image: url("../images/pexels-iriser-1366957.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
+
+
+.home--text{
+    font-size: 100px;
+    font-family: tommy;
+    color: white;
+    text-shadow: 4px 0px 2px black;
+    border: solid 2px white;
+    backdrop-filter: blur(6px);
+    position: absolute;
+    bottom: 400px;
+    padding: 40px;
+   
+}
+
+.home--title{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.nav-link text-light{}

@@ -5,12 +5,10 @@
     text-transform: uppercase;
 }
 
-.active {
-    background-color: navy;
-}
+
 
 .dropdown-bg{
-    background-color: navy !important;
+    background-color: rgb(34, 34, 34) !important;
     padding: 10px !important;
     text-align: center !important;
     margin-bottom: 0;
@@ -26,20 +24,13 @@
     overflow-y: auto;
 }
 
-/* People underline */
+/* background login/register */
 
-.people-after{
-    border-bottom: 1px solid gray;
-    padding-bottom: 5px;
+.image-bg{
+    height: 100vh;
+    background-image: url(../images/pexels-ian-panelo-10722260.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
-.people-border{
-    border: 2px solid #007BFF;
-    padding: 5px;
-    font-size: 16px;
-}
-
-.people-border:hover{
-    background-color: #007BFF;
-    color: white !important;
-}
