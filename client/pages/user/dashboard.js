@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
 import People from "../../components/cards/People";
 import Link from "next/link";
-import { Modal, Button } from 'antd';
+import { Modal, Button, Pagination } from 'antd';
 import CommentForm from "../../components/forms/CommentForm";
 
 
@@ -32,6 +32,10 @@ const Home = () => {
     const [visible, setVisible] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
 
+    // Pagination state's
+    const [totalPosts, setTotalPosts] = useState(0);
+    const [page, setPage] = useState(1);
+
     // Router
     const router = useRouter();
 
@@ -41,13 +45,23 @@ const Home = () => {
             newsFeed();
             findPeople();
         }
-    }, [state && state.token]);
+    }, [state && state.token, page]);
+
+    useEffect(() => {
+        try {
+            axios.get("/total-posts")
+                .then(({ data }) => setTotalPosts(data))
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }, [])
 
     // Functions
 
     const newsFeed = async () => {
         try {
-            const { data } = await axios.get("/news-feed");
+            const { data } = await axios.get(`/news-feed/${page}`);
             setPosts(data);
         }
         catch (err) {
@@ -71,11 +85,13 @@ const Home = () => {
         try {
             const { data } = await axios.post("/create-post", { content, image });
 
+
             if (data.error) {
                 toast.error(data.error);
             }
             else {
                 toast.success("Post Created");
+                setPage(1);
                 setContent("");
                 setImage({});
                 newsFeed();
@@ -235,6 +251,13 @@ const Home = () => {
                             removeComment={removeComment}
                             addComment={addComment}
                         />
+
+                        <Pagination
+                            current={page}
+                            total={(totalPosts / 3) * 10}
+                            onChange={(value) => setPage(value)}
+                        />
+
                     </div>
 
                     <div className="col-md-4">
