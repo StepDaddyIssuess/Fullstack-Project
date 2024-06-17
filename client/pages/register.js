@@ -54,15 +54,7 @@ const Register = () => {
     if (state && state.token) { router.push("/") };
 
     return (
-        <div className="container-fluid">
-<<<<<<< HEAD
-=======
-            <div className="row py-5 bg-secondary text-light bg-default-image">
-                <div className="col text-center register-title">
-                    <h1>Register Page</h1>
-                </div>
-            </div>
->>>>>>> 022ece2c284861cd90bd0424bcba34898d33a05e
+        <div className="container-fluid image-bg">
 
             <div className="row py-5 ">
                 <div className="col-md-6 offset-md-3 register--page">
@@ -102,8 +94,8 @@ const Register = () => {
             </div>
 
             <div className="row already-registered">
-            <p>Already registered? <Link href="/login">Login</Link>
-            </p>
+                <p>Already registered? <Link href="/login">Login</Link>
+                </p>
                 <div className="col">
                 </div>
             </div>

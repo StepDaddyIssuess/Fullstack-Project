@@ -52,7 +52,7 @@ const Login = () => {
     if (state && state.token) { router.push("/") };
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid image-bg">
             <div className="row py-5 bg-secondary text-light bg-default-image login-box-above-text">
                 <div className="col text-center">
                     <h1 className="login-title">Login Page</h1>

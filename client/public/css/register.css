@@ -9,12 +9,6 @@
     src: url(../fonts/couture/couture-bld.otf);
 }
 
-body{
-    background-image: url(../images/pexels-ian-panelo-10722260.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
 
 .register--page { 
     border: solid 2px white;
