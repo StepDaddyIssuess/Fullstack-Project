@@ -168,7 +168,7 @@ const removeComment = async (req, res) => {
     try {
         const { postId, comment } = req.body;
         const post = await Post.findByIdAndUpdate(postId, {
-            $pull: { comment: { _id: comment._id } }
+            $pull: { comments: { _id: comment._id } }
         }, { new: true })
 
         res.json(post);
