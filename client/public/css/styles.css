@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .container {
+=======
+
+>>>>>>> 022ece2c284861cd90bd0424bcba34898d33a05e
 
     text-shadow: 2px 2px 8px #fff;
     min-height: 100vh;
@@ -47,4 +51,26 @@
     min-height: 200px;
     max-height: 700px;
     overflow-y: auto;
+<<<<<<< HEAD
 }
+=======
+}
+
+/* People underline */
+
+.people-after{
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+}
+
+.people-border{
+    border: 2px solid #007BFF;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.people-border:hover{
+    background-color: #007BFF;
+    color: white !important;
+}
+>>>>>>> 022ece2c284861cd90bd0424bcba34898d33a05e

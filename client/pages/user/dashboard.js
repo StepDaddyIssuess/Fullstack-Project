@@ -6,8 +6,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostList from "../../components/cards/PostList";
-import People from "../../components/cards/people";
-import { Modal, Button } from 'react-bootstrap';
+import People from "../../components/cards/People";
+import Link from "next/link";
+import { Modal, Button } from 'antd';
+import CommentForm from "../../components/forms/CommentForm";
+
+
 
 const Home = () => {
     const [state, setState] = useContext(UserContext);
@@ -19,9 +23,14 @@ const Home = () => {
     const [people, setPeople] = useState([]);
     const [posts, setPosts] = useState([]);
 
-    // Modal state
+    // Modal state Delete post
     const [showModal, setShowModal] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
+
+    // Modal state Add comment
+    const [comment, setComment] = useState("");
+    const [visible, setVisible] = useState(false);
+    const [currentPost, setCurrentPost] = useState({});
 
     // Router
     const router = useRouter();
@@ -29,16 +38,16 @@ const Home = () => {
     // Effect 
     useEffect(() => {
         if (state && state.token) {
-            fetchUserPosts();
+            newsFeed();
             findPeople();
         }
     }, [state && state.token]);
 
     // Functions
 
-    const fetchUserPosts = async () => {
+    const newsFeed = async () => {
         try {
-            const { data } = await axios.get("/user-posts");
+            const { data } = await axios.get("/news-feed");
             setPosts(data);
         }
         catch (err) {
@@ -69,7 +78,7 @@ const Home = () => {
                 toast.success("Post Created");
                 setContent("");
                 setImage({});
-                fetchUserPosts();
+                newsFeed();
             }
         }
         catch (error) {
@@ -97,7 +106,7 @@ const Home = () => {
         try {
             const { data } = await axios.delete(`/delete-post/${postToDelete._id}`);
             toast.error("Post Deleted!");
-            fetchUserPosts();
+            newsFeed();
             setShowModal(false); // Close modal after successful deletion
         }
         catch (error) {
@@ -114,6 +123,88 @@ const Home = () => {
         setShowModal(false);
         setPostToDelete(null);
     };
+
+    const handleFollow = async (user) => {
+        // console.log("add this user to the following list", user);
+        try {
+            const { data } = await axios.put("user-follow", { _id: user._id })
+
+            // Update local storage, update user , keep token
+            let auth = JSON.parse(localStorage.getItem("auth"));
+            auth.user = data;
+            localStorage.setItem("auth", JSON.stringify(auth));
+            // update context
+            setState({ ...state, user: data });
+            // update people state
+            setPeople(prevPeople => prevPeople.filter((p) => p._id !== user._id));
+            // Success
+            newsFeed() // Reloading the feed
+            toast.success(`Following ${user.username}`);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleLike = async (_id) => {
+        try {
+            const { data } = await axios.put("/like-post", { _id });
+            // console.log("liked => ", data);
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleUnlike = async (_id) => {
+        try {
+            const { data } = await axios.put("/unlike-post", { _id });
+            // console.log("unliked => ", data);
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleComment = (post) => {
+        setCurrentPost(post);
+        setVisible(true);
+    }
+
+    const addComment = async (e) => {
+        e.preventDefault();
+        // console.log("Add comment to this post => ", currentPost._id);
+        // console.log("Save comment in Database", comment)
+        try {
+            const { data } = await axios.put("/add-comment", {
+                comment,
+                postId: currentPost._id
+            })
+            console.log("Add comment", data);
+            setVisible(false);
+            setComment("");
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const removeComment = async (postId, comment) => {
+        let anwser = window.confirm("Are you sure you want to remove!");
+        if (!anwser) return;
+        try {
+            const { data } = await axios.put("/remove-comment", { postId, comment });
+            console.log("Comment Removed", data)
+            newsFeed();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
 
     return (
         <UserRoute>
@@ -135,30 +226,69 @@ const Home = () => {
                             upLoading={upLoading}
                         />
 
-                        <PostList posts={posts} handleDelete={openDeleteModal} />
+                        <PostList
+                            posts={posts}
+                            handleDelete={openDeleteModal}
+                            handleLike={handleLike}
+                            handleUnlike={handleUnlike}
+                            handleComment={handleComment}
+                            removeComment={removeComment}
+                            addComment={addComment}
+                        />
                     </div>
 
                     <div className="col-md-4">
-                        <People people={people} />
+                        {state && state.user && state.user.following &&
+                            <Link href={`/user/following`}>
+                                <span className="h6">
+                                    Following {state.user.following.length}
+                                </span>
+                            </Link>
+                        }
+                        {state && state.user && state.user.followers &&
+                            <Link href={"/user/followers"} style={{ marginLeft: "2rem" }}>
+                                <span className="h6">
+                                    Followers {state.user.followers.length}
+                                </span>
+                            </Link>
+                        }
+                        <People people={people} handleFollow={handleFollow} />
                     </div>
                 </div>
             </div>
 
             {/* Modal for Delete Confirmation */}
-            <Modal show={showModal} onHide={closeDeleteModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirmation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeDeleteModal}>
+            <Modal
+                title="Confirmation"
+                open={showModal}
+                onCancel={closeDeleteModal}
+                footer={[
+                    <Button key="cancel" onClick={closeDeleteModal}>
                         Cancel
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
+                    </Button>,
+                    <Button key="delete" type="primary" danger onClick={handleDelete}>
                         Delete
                     </Button>
-                </Modal.Footer>
+                ]}
+                centered
+            >
+                <p>Are you sure you want to delete this post?</p>
             </Modal>
+
+            {/* Modal for adding a comment */}
+            <Modal
+                open={visible}
+                onCancel={() => setVisible(false)}
+                title="Comment Section"
+                footer={null}
+            >
+                <CommentForm
+                    addComment={addComment}
+                    comment={comment}
+                    setComment={setComment}
+                />
+            </Modal>
+
         </UserRoute >
     );
 };

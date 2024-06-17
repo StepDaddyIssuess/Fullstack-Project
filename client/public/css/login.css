@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .login-page{
     border: solid 2px white;
     width: 450px;
@@ -24,4 +25,12 @@
     font-family: couture;
     font-size: 50px;
     text-shadow: 2px 1px 4px white;
+=======
+.login-title{
+    font-size: 50px;
+}
+
+.Nikker{
+    font-size: 50px;
+>>>>>>> 022ece2c284861cd90bd0424bcba34898d33a05e
 }

@@ -55,6 +55,14 @@ const Register = () => {
 
     return (
         <div className="container-fluid">
+<<<<<<< HEAD
+=======
+            <div className="row py-5 bg-secondary text-light bg-default-image">
+                <div className="col text-center register-title">
+                    <h1>Register Page</h1>
+                </div>
+            </div>
+>>>>>>> 022ece2c284861cd90bd0424bcba34898d33a05e
 
             <div className="row py-5 ">
                 <div className="col-md-6 offset-md-3 register--page">
