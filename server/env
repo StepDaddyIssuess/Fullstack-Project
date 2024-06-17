@@ -1,0 +1,7 @@
+PORT=8000
+DATABASE="mongodb+srv://Kyano:hello1234@merncamp.yritfym.mongodb.net/?retryWrites=true&w=majority&appName=merncamp"
+JWT_SECRET=fhseofhaosefhosahfpashfsh
+
+CLOUDINARY_NAME=devdus3fh
+CLOUDINARY_KEY=715956429827427
+CLOUDINARY_SECRET=9NtuVdtPHMfCJX07FiNZviiIBSo

@@ -55,27 +55,24 @@ const Register = () => {
 
     return (
         <div className="container-fluid">
-            <div className="row py-5 bg-secondary text-light bg-default-image">
-                <div className="col text-center">
-                    <h1>Register Page</h1>
-                </div>
-            </div>
 
-            <div className="row py-5">
-                <div className="col-md-6 offset-md-3">
-                    <AuthForm
-                        handleSubmit={handleSubmit}
-                        name={name}
-                        setName={setName}
-                        email={email}
-                        setEmail={setEmail}
-                        password={password}
-                        setPassword={setPassword}
-                        secret={secret}
-                        setSecret={setSecret}
-                        loading={loading}
-                        register={"register"}
-                    />
+            <div className="row py-5 ">
+                <div className="col-md-6 offset-md-3 register--page">
+                    <div className="register-content">
+                        <AuthForm
+                            handleSubmit={handleSubmit}
+                            name={name}
+                            setName={setName}
+                            email={email}
+                            setEmail={setEmail}
+                            password={password}
+                            setPassword={setPassword}
+                            secret={secret}
+                            setSecret={setSecret}
+                            loading={loading}
+                            register={"register"}
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -96,10 +93,10 @@ const Register = () => {
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row already-registered">
+            <p>Already registered? <Link href="/login">Login</Link>
+            </p>
                 <div className="col">
-                    <p className="text-center">Already registered? <Link href="/login">Login</Link>
-                    </p>
                 </div>
             </div>
         </div>

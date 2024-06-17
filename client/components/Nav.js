@@ -29,8 +29,8 @@ function Nav() {
 
     return (
 
-        <nav className=" nav d-flex justify-content-between" style={{ backgroundColor: "blue" }}>
-            <Link href="/" className={`nav-link text-light logo ${current === "/" && "active"}`}>
+        <nav className=" nav d-flex justify-content-between nav-bar nav-fullstackproject">
+            <Link href="/" className={`nav-link text-light logo ${current === "/" && "active"}`} style={{backgroundColor: "black"}}>
                 FullStackProject
             </Link>
 
@@ -60,14 +60,13 @@ function Nav() {
 
             ) : (
                 <>
-                    <Link href="/login" className={`nav-link text-light ${current === "/login" && "active"}`}>
-                        Login
-                    </Link>
-
-
-                    <Link href="/register" className={`nav-link text-light ${current === "/register" && "active"}`}>
-                        Register
-                    </Link>
+                        <Link href="/register" className=   {`nav-link nav--register text-light ${current === "/register" && "active"}`}>
+                            Register
+                        </Link>
+                        <Link href="/login" className={`nav-link nav--login !important
+                            text-light ${current === "/login" && "active"} `}>
+                            Login
+                        </Link>
                 </>
 
             )}

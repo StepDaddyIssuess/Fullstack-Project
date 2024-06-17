@@ -53,14 +53,14 @@ const Login = () => {
 
     return (
         <div className="container-fluid">
-            <div className="row py-5 bg-secondary text-light bg-default-image">
+            <div className="row py-5 bg-secondary text-light bg-default-image login-box-above-text">
                 <div className="col text-center">
                     <h1>Login Page</h1>
                 </div>
             </div>
 
             <div className="row py-5">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-6 offset-md-3 login-page">
                     <AuthForm
                         handleSubmit={handleSubmit}
                         email={email}
