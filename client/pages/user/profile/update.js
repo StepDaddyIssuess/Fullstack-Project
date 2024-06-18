@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal, Avatar } from "antd";
 import Link from "next/link";
-import AuthForm from "../../../components/forms/AuthForm";
+import ProfileFormUpdate from "../../../components/forms/ProfileFormUpdate";
 import { UserContext } from "../../../context";
 import { useRouter } from "next/router";
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -66,7 +66,7 @@ const ProfileUpdate = () => {
 
                 // ! Update Context ! // 
                 setState({ ...state, user: data });
-                router.reload();
+                // router.reload();
             }
 
         }
@@ -121,7 +121,7 @@ const ProfileUpdate = () => {
                     <label className="d-flex justify-content-center display-4 profile-user-content ">
                         {
                             image && image.url ?
-                                (<Avatar size={120} src={image.url} className="mt-1 profile-pfp" />) :
+                                (<Avatar size={100} src={image.url} className="mt-1 profile-pfp" role="button" />) :
                                 uploading ?
                                     (<LoadingOutlined spin />) :
                                     (<CameraOutlined className="mt-2" role="button" />)
@@ -130,12 +130,12 @@ const ProfileUpdate = () => {
                     </label>
 
 
-                    <AuthForm
+                    <ProfileFormUpdate
                         username={username}
                         setUsername={setUsername}
                         about={about}
                         setAbout={setAbout}
-                        handleSubmit={handleSubmit}         
+                        handleSubmit={handleSubmit}
                         name={name}
                         setName={setName}
                         email={email}
@@ -146,6 +146,7 @@ const ProfileUpdate = () => {
                         setSecret={setSecret}
                         loading={loading}
                         profileUpdate={true}
+                        page="login"
                     />
                 </div>
             </div>

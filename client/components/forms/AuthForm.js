@@ -13,57 +13,29 @@ const AuthForm = ({
     loading,
     page,
     register,
-    username,
-    setUsername,
-    about,
-    setAbout,
     profileUpdate,
 }) => {
 
     return (
         <form onSubmit={handleSubmit}>
 
-            <div className="profile-user-content">
-                {profileUpdate && <div className="form-group p-2">
-                    <small>
-                        <label className="text-muted profile-user-text">Your Username</label>
-                    </small>
-                    <input
-                        type="text"
-                        className="form-control" placeholder="Enter Username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                    />
-                </div>}
-                {profileUpdate && <div className="form-group p-2">
-                    <small>
-                        <label className="text-muted profile-user-text">About You.</label>
-                    </small>
-                    <input
-                        type="text"
-                        className="form-control" placeholder="About You"
-                        value={about}
-                        onChange={e => setAbout(e.target.value)}
-                    />
-                </div>}
-            </div>
 
             {page !== "login" && <div className="form-group p-2">
                 <div className="row py-5 bg-secondary text-light bg-default-image register-box-above">
-                <div className="col text-center ">
-                    <h1 className='register-box-above-text'>Registerrr</h1>
+                    <div className="col text-center ">
+                        <h1 className='register-box-above-text'>Registerrr</h1>
+                    </div>
                 </div>
-            </div>
                 <small>
                     <label className="text-muted register-text-tiny">Your name</label>
                 </small>
 
-                    <input
-                        type="text"
-                        className="form-control" placeholder="Enter name" id="register-text"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
+                <input
+                    type="text"
+                    className="form-control" placeholder="Enter name" id="register-text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                />
             </div>}
 
             <div className="form-group p-2">
@@ -94,7 +66,7 @@ const AuthForm = ({
                 <div className="form-group p-2">
                     <small>
                         <label className="text-muted register-text-tiny">Pick a question</label>
-                    </small> 
+                    </small>
                     <select className="form-control" id="register-text">
                         <option>What is your favourite color?</option>
                         <option id='register-option'>What is your best friend's name?</option>
@@ -105,7 +77,7 @@ const AuthForm = ({
                 </div>
 
                 <div className="form-group p-2">
-                <small className=" text-muted register-text-tiny" >
+                    <small className=" text-muted register-text-tiny" >
                         You can use these to reset your password if forgotten.
                     </small>
                     <input
@@ -115,7 +87,7 @@ const AuthForm = ({
                         onChange={e => setSecret(e.target.value)}
                     />
                 </div>
-                
+
             </>}
 
             <div className="form-group p-2 ">
