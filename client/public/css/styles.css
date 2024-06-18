@@ -34,3 +34,43 @@
     background-repeat: no-repeat;
 }
 
+
+/* Pagination */
+.pagination {
+    gap: 2rem;
+    
+}
+
+.pages {
+    border: 2px solid  gray;
+    padding: 7px;
+    padding-block: 5px;
+    font-size: 15px;
+}
+
+.focused{
+    background-color: black;
+    color: white;
+}
+
+.page-link {
+    font-size: 10px;
+
+}
+
+.page-previous {
+    display: flex;
+    align-items: center;
+    border: 2px solid  gray;
+    padding: 15px;
+    padding-block: 5px;
+}
+
+.page-next {
+    display: flex;
+    align-items: center;
+    border: 2px solid  gray;
+    padding: 15px;
+    padding-block: 5px;
+    
+}

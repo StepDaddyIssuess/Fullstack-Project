@@ -114,7 +114,7 @@ const newsFeed = async (req, res) => {
     following.push(req.auth._id);
 
     // Pagination
-    const currentPage = parseInt(req.params.page) || 1;
+    const currentPage = req.params.page || 1;
     const perPage = 3;
 
 

@@ -10,6 +10,7 @@ import People from "../../components/cards/People";
 import Link from "next/link";
 import { Modal, Button, Pagination } from 'antd';
 import CommentForm from "../../components/forms/CommentForm";
+import ReactPaginate from "react-paginate";
 
 
 
@@ -22,6 +23,7 @@ const Home = () => {
     const [upLoading, setUpLoading] = useState(false);
     const [people, setPeople] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [post, setPost] = useState({});
 
     // Modal state Delete post
     const [showModal, setShowModal] = useState(false);
@@ -63,6 +65,7 @@ const Home = () => {
         try {
             const { data } = await axios.get(`/news-feed/${page}`);
             setPosts(data);
+            console.log(data);
         }
         catch (err) {
             console.log(err);
@@ -221,6 +224,10 @@ const Home = () => {
         }
     }
 
+    const handlePageClick = (data) => {
+        setPage(data.selected + 1);
+    }
+
 
     return (
         <UserRoute>
@@ -252,10 +259,21 @@ const Home = () => {
                             addComment={addComment}
                         />
 
-                        <Pagination
-                            current={page}
-                            total={(totalPosts / 3) * 10}
-                            onChange={(value) => setPage(value)}
+                        <ReactPaginate
+                            previousLabel={'<'}
+                            nextLabel={">"}
+                            previousClassName={'page-previous'}
+                            nextClassName={'page-next'}
+                            breakLabel={'...'}
+                            pageCount={Math.ceil(totalPosts / 3)}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={100}
+                            onPageChange={handlePageClick}
+                            containerClassName={'pagination'}
+                            activeClassName={'focused'}
+                            pageClassName={"pages"}
+                            pageLinkClassName={'page-link'}
+                            forcePage={page - 1}
                         />
 
                     </div>
