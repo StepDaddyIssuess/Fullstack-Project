@@ -1,6 +1,6 @@
 .login-page{
     border: solid 2px white;
-    width: 450px;
+    min-width: 450px; 
     height: 440px;
     margin-top: 20px;
     display: flex;
@@ -24,4 +24,12 @@
     font-family: couture;
     font-size: 50px;
     text-shadow: 2px 1px 4px white;
+}
+
+.login--forgot--password{
+    color: white;
+    position: absolute;
+    z-index: 1;
+    top: 650px;
+    left: 420px;
 }

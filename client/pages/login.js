@@ -83,9 +83,9 @@ const Login = () => {
 
             <div className="row">
                 <div className="col">
-                    <p className="text-center">
+                    <p className="text-center ">
                         <Link href="/forgot-password">
-                            Forgot Password?
+                            <span className="login--forgot--password">Forgot Password?</span>
                         </Link>
                     </p>
                 </div>
