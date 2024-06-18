@@ -11,7 +11,7 @@ import "../public/css/nav.css"
 import "../public/css/register.css"
 import "../public/css/login.css"
 import "../public/css/profile.css"
-
+import "../public/css/dashboard.css"
 
 function Myapp({ Component, pageProps }) {
     return (

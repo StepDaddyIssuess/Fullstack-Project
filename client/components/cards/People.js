@@ -19,11 +19,15 @@ const People = ({ people, handleFollow }) => {
                 dataSource={people}
                 renderItem={(user) => (
                     <List.Item.Meta
-                        className="mb-2 people-after "
-                        avatar={<Avatar src={imageSource(user)} />}
-                        title={<div className="d-flex justify-content-between h5">{user.username} <span className="text-primary people-border" role="button"
-                            onClick={() => handleFollow(user)}
-                        >Follow</span></div>}
+                        className="mb-2 people-after dashboard--sidebar--following--container "
+                        avatar={<Avatar size={60} src={imageSource(user)} />}
+                        title={<div className="d-flex justify-content-between h5 ">
+                            <span className="dashboard--sidebar--following--usernames">
+                                {user.username}
+                            </span>
+                            <span className=" people-border dashboard--sidebar--following--button" role="button"
+                                onClick={() => handleFollow(user)}
+                            >Follow</span></div>}
                     />
                 )}
             >

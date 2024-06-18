@@ -231,7 +231,7 @@ const Home = () => {
 
     return (
         <UserRoute>
-            <div className="container-fluid">
+            <div className="container-fluid ">
                 <div className="row py-5 bg-secondary text-light bg-default-image">
                     <div className="col text-center">
                         <h1>NewsFeed</h1>
@@ -278,18 +278,11 @@ const Home = () => {
 
                     </div>
 
-                    <div className="col-md-4">
+                    <div className="col-md-4 dashboard--side--bar--container">
                         {state && state.user && state.user.following &&
-                            <Link href={`/user/following`}>
-                                <span className="h6">
+                            <Link href={`/user/following`} className="dashboard--side--bar--link">
+                                <span className="h6 dashboard--side--bar--link-text">
                                     Following {state.user.following.length}
-                                </span>
-                            </Link>
-                        }
-                        {state && state.user && state.user.followers &&
-                            <Link href={"/user/followers"} style={{ marginLeft: "2rem" }}>
-                                <span className="h6">
-                                    Followers {state.user.followers.length}
                                 </span>
                             </Link>
                         }
