@@ -108,20 +108,20 @@ const ProfileUpdate = () => {
 
 
     return (
-        <div className="container-fluid">
-            <div className="row py-5 bg-secondary text-light bg-default-image">
+        <div className="container-fluid profile-page">
+            <div className="row py-5 bg-secondary text-light bg-default-image profile-text">
                 <div className="col text-center">
-                    <h1>Profile</h1>
+                    <h1>Welcome to your profile</h1>
                 </div>
             </div>
 
             <div className="row py-5">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-6 offset-md-3 ">
 
-                    <label className="d-flex justify-content-center display-4">
+                    <label className="d-flex justify-content-center display-4 profile-user-content ">
                         {
                             image && image.url ?
-                                (<Avatar size={60} src={image.url} className="mt-1" />) :
+                                (<Avatar size={120} src={image.url} className="mt-1 profile-pfp" />) :
                                 uploading ?
                                     (<LoadingOutlined spin />) :
                                     (<CameraOutlined className="mt-2" role="button" />)
@@ -135,7 +135,7 @@ const ProfileUpdate = () => {
                         setUsername={setUsername}
                         about={about}
                         setAbout={setAbout}
-                        handleSubmit={handleSubmit}
+                        handleSubmit={handleSubmit}         
                         name={name}
                         setName={setName}
                         email={email}

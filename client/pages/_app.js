@@ -10,6 +10,7 @@ import "../public/css/home.css";
 import "../public/css/nav.css"
 import "../public/css/register.css"
 import "../public/css/login.css"
+import "../public/css/profile.css"
 
 
 function Myapp({ Component, pageProps }) {

@@ -23,34 +23,35 @@ const AuthForm = ({
     return (
         <form onSubmit={handleSubmit}>
 
-            {profileUpdate && <div className="form-group p-2 ">
-                <small>
-                    <label className="text-muted">Your Username</label>
-                </small>
-                <input
-                    type="text"
-                    className="form-control" placeholder="Enter Username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                />
-            </div>}
-
-            {profileUpdate && <div className="form-group p-2">
-                <small>
-                    <label className="text-muted">About You.</label>
-                </small>
-                <input
-                    type="text"
-                    className="form-control" placeholder="About You"
-                    value={about}
-                    onChange={e => setAbout(e.target.value)}
-                />
-            </div>}
+            <div className="profile-user-content">
+                {profileUpdate && <div className="form-group p-2">
+                    <small>
+                        <label className="text-muted profile-user-text">Your Username</label>
+                    </small>
+                    <input
+                        type="text"
+                        className="form-control" placeholder="Enter Username"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </div>}
+                {profileUpdate && <div className="form-group p-2">
+                    <small>
+                        <label className="text-muted profile-user-text">About You.</label>
+                    </small>
+                    <input
+                        type="text"
+                        className="form-control" placeholder="About You"
+                        value={about}
+                        onChange={e => setAbout(e.target.value)}
+                    />
+                </div>}
+            </div>
 
             {page !== "login" && <div className="form-group p-2">
                 <div className="row py-5 bg-secondary text-light bg-default-image register-box-above">
                 <div className="col text-center ">
-                    <h1 className='register-box-above-text'>Register</h1>
+                    <h1 className='register-box-above-text'>Registerrr</h1>
                 </div>
             </div>
                 <small>
