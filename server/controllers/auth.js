@@ -287,8 +287,30 @@ const userUnfollow = async (req, res) => {
     }
 }
 
+const searchUser = async (req, res) => {
+    // Destructure
+    const { query } = req.params;
+    if (!query) return;
+
+    // try / catch
+    try {
+
+        // Find the user
+        const user = await User.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { username: { $regex: query, $options: "i" } }
+            ]
+        }).select("_id name username image");
+        res.json(user);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 
 
-module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow };
+
+module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser };
 
 

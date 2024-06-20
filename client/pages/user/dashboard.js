@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Modal, Button, Pagination } from 'antd';
 import CommentForm from "../../components/forms/CommentForm";
 import ReactPaginate from "react-paginate";
+import Search from "../../components/Search";
 
 
 
@@ -274,11 +275,15 @@ const Home = () => {
                             pageClassName={"pages"}
                             pageLinkClassName={'page-link'}
                             forcePage={page - 1}
+                            className="pb-5"
                         />
 
                     </div>
 
                     <div className="col-md-4 dashboard--side--bar--container">
+
+                        <Search />
+
                         {state && state.user && state.user.following &&
                             <Link href={`/user/following`} className="dashboard--side--bar--link">
                                 <span className="h6 dashboard--side--bar--link-text">
