@@ -1,8 +1,7 @@
 .login-page{
     border: solid 2px white;
-    min-width: 450px; 
     height: 440px;
-    margin-top: 20px;
+    max-width: 500px;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -19,17 +18,27 @@
 .login-box-above-text{
     display: inline;
     position: relative;
-    top: 60px;
+    top: 180px;
     color: white;
     font-family: couture;
     font-size: 50px;
-    text-shadow: 2px 1px 4px white;
+    z-index: 1;
+
 }
 
 .login--forgot--password{
     color: white;
-    position: absolute;
+
+
     z-index: 1;
-    top: 650px;
-    left: 420px;
+}
+.login-box{
+    position: absolute;
+    bottom: 320px;
+}
+
+
+.login-title{
+    color: white;
+    font-size: 45px;
 }

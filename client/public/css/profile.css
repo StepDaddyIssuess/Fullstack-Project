@@ -1,0 +1,44 @@
+.profile-text{
+    background-color: black !important;
+}
+
+.welcome-text{
+    color: white !important;
+}
+
+.profile-tiny-text{
+    color: black !important;
+}
+
+.profile-page{
+    background-color: black !important;
+}
+
+.profile-user-text{
+    color: white !important;
+}
+
+.profile-user-content{
+    border: solid white 1px !important;
+    padding: 40px 50px 60px;
+    border-radius: 24px;
+    height: 400px;
+}
+
+.profile-pfp{
+height: 300px !important;
+width: 300px !important;
+}
+
+.profile-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 300px;
+}
+.profile-information{
+    border: solid 3px white;
+    padding: 20px 300px;
+    border-radius: 20px;
+}
+

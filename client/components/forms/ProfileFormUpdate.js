@@ -21,7 +21,7 @@ const ProfileFormUpdate = ({
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="profile-user-content">
+            <div className="profile-information">
                 {profileUpdate && <div className="form-group p-2">
                     <small>
                         <label className="text-muted profile-user-text">Your Username</label>

@@ -110,13 +110,13 @@ const ProfileUpdate = () => {
     return (
         <div className="container-fluid profile-page">
             <div className="row py-5 bg-secondary text-light bg-default-image profile-text">
-                <div className="col text-center">
-                    <h1>Welcome to your profile</h1>
+                <div className="col text-center ">
+                    <h1 className="welcome-text">Welcome to your profile</h1>
                 </div>
             </div>
 
-            <div className="row py-5">
-                <div className="col-md-6 offset-md-3 ">
+            <div className="row py-5 ">
+                <div className="profile-content ">
 
                     <label className="d-flex justify-content-center display-4 profile-user-content ">
                         {
