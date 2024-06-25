@@ -194,6 +194,19 @@ const totalPosts = async (req, res) => {
     }
 }
 
+const posts = async (req, res) => {
+    try {
+        const posts = await Post.find()
+            .populate("postedBy", "_id name image")
+            .populate("comments.postedBy", "_id name image")
+            .limit(12);
+        res.json(posts);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     createPost,
     createImage,
@@ -206,5 +219,6 @@ module.exports = {
     unlikePost,
     addComment,
     removeComment,
-    totalPosts
+    totalPosts,
+    posts
 }
