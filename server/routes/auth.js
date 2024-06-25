@@ -6,7 +6,7 @@ dotenv.config();
 const router = express.Router();
 
 // Controllers
-const { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser } = require("../controllers/auth");
+const { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser, getUser } = require("../controllers/auth");
 
 // Middleware
 const { requireSignin, addFollower, removeFollower } = require('../middleware');
@@ -26,5 +26,6 @@ router.get("/user-following", requireSignin, userFollowing)
 router.put("/user-unfollow", requireSignin, removeFollower, userUnfollow)
 
 router.put("/search-user/:query", searchUser);
+router.get("/user/:username", getUser)
 
 module.exports = router;

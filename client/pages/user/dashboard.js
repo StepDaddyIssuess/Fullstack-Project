@@ -275,7 +275,7 @@ const Home = () => {
                             pageClassName={"pages"}
                             pageLinkClassName={'page-link'}
                             forcePage={page - 1}
-                            className="pb-5"
+                            className="pb-5 d-flex fs-5"
                         />
 
                     </div>
