@@ -34,6 +34,10 @@ const userSchema = new Schema({
         url: String,
         public_id: String,
     },
+    role: {
+        type: String,
+        default: "user",
+    },
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }]
 }, { timestamps: true });

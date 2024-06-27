@@ -1,6 +1,8 @@
 const Post = require("../models/posts");
 const User = require("../models/user");
+
 const cloudinary = require("cloudinary").v2;
+const mongoose = require('mongoose');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -23,8 +25,12 @@ const createPost = async (req, res) => {
             image,
             postedBy: req.auth._id,
         })
-        post.save();
-        res.json(post);
+        await post.save();
+
+        const postWithUser = await Post.findById(post._id)
+            .populate("postedBy", "-password -secret");
+
+        res.json(postWithUser);
     }
     catch (error) {
         console.log(error);
@@ -207,6 +213,26 @@ const posts = async (req, res) => {
     }
 }
 
+
+const getPost = async (req, res) => {
+    try {
+
+        if (!mongoose.Types.ObjectId.isValid(req.params._id)) {
+            return res.json({
+                error: "Could not find the post"
+            });
+        }
+
+        const post = await Post.findById(req.params._id)
+            .populate("postedBy", "_id name image")
+            .populate("comments.postedBy", "_id name image");
+
+        res.json(post);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 module.exports = {
     createPost,
     createImage,
@@ -220,5 +246,6 @@ module.exports = {
     addComment,
     removeComment,
     totalPosts,
-    posts
+    posts,
+    getPost
 }

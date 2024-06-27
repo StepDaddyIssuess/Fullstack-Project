@@ -9,7 +9,7 @@ const router = express.Router();
 const { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser, getUser } = require("../controllers/auth");
 
 // Middleware
-const { requireSignin, addFollower, removeFollower } = require('../middleware');
+const { requireSignin, addFollower, removeFollower, isAdmin } = require('../middleware');
 
 
 
@@ -27,5 +27,8 @@ router.put("/user-unfollow", requireSignin, removeFollower, userUnfollow)
 
 router.put("/search-user/:query", searchUser);
 router.get("/user/:username", getUser)
+
+//Admin
+router.get("/current-admin", requireSignin, isAdmin, currentUser);
 
 module.exports = router;

@@ -11,6 +11,7 @@ import PostForm from "../forms/PostForm";
 import ReactHtmlParser from 'html-react-parser';
 import { imageSource } from "../../functions";
 import Link from "next/link";
+import { toast } from "react-toastify"
 
 
 
@@ -18,20 +19,29 @@ import Link from "next/link";
 
 
 
-const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, addComment, removeComment, commentCount = 10 }) => {
+const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, addComment, removeComment, commentCount = 10, homepage, SinglePost }) => {
 
     const [state, setState] = useContext(UserContext);
     const router = useRouter();
 
 
+    const handleError = () => {
+        toast.error("Not logged in yet")
+    }
+
+    const deleteEditError = () => {
+        toast.error("Can't edit or remove on HomePage")
+    }
+
     return (
         <>
+
             {post && post.postedBy && <div key={post._id} className="card mb-5" >
                 <div className="card-header">
                     <div>
                         {/* <Avatar size={40}>
-                                    {post.postedBy.name[0]}
-                                </Avatar> */}
+                                        {post.postedBy.name[0]}
+                                    </Avatar> */}
 
                         <Avatar size={40} src={imageSource(post.postedBy)} />
 
@@ -52,24 +62,26 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                 </div>
 
                 <div className="card-footer">
-                    {post.image && (
-                        <PostImage
-                            url={post.image.url}
-                        />
-                    )}
+                    {homepage ? <></> :
+                        post.image && (
+                            <PostImage
+                                url={post.image.url}
+                            />
+                        )
+                    }
 
                     <div className="pt-2 d-flex justify-content-between">
                         <div className="d-flex">
-                            {post.likes.includes(state.user._id)
+                            {!homepage || SinglePost || (state && state.user && post.likes.includes(state.user._id))
                                 ? <HeartFilled
-                                    onClick={() => handleUnlike(post._id)}
+                                    onClick={() => homepage || SinglePost ? handleError() : handleUnlike(post._id)}
                                     className="text-danger  h5" style={{
                                         marginRight: "0.5rem",
                                         marginTop: "0.5rem"
                                     }}
                                     role="button"
                                 /> : <HeartOutlined
-                                    onClick={() => handleLike(post._id)}
+                                    onClick={() => homepage || SinglePost ? handleError() : handleLike(post._id)}
                                     className="text-danger  h5" style={{
                                         marginRight: "0.5rem",
                                         marginTop: "0.5rem"
@@ -78,12 +90,13 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                                 />}
                             <div className="pt-2 ">{post.likes.length} likes</div>
                             <CommentOutlined
-                                onClick={() => handleComment(post)}
+                                onClick={() => homepage || SinglePost ? handleError() : handleComment(post)}
                                 className="text-danger h5" style={{ marginLeft: "1rem", marginRight: "0.5rem", marginTop: "0.5rem" }} role="button" />
                             <div className="pt-2">
-                                <Link href={`/post/${post._id}`}>
+                                {homepage || SinglePost ? <p> {post.comments.length} comment</p> : <Link href={`/post/${post._id}`}>
                                     <span className="text-dark" >{post.comments.length} comments</span>
-                                </Link>
+                                </Link>}
+
                             </div>
                         </div>
 
@@ -94,7 +107,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                                         <EditOutlined className="pt-2 px-3 h5" role="button" onClick={() => router.push(`/user/post/${post._id}`)} />
                                         <DeleteOutlined
                                             onClick={() =>
-                                                handleDelete(post)
+                                                homepage || SinglePost ? deleteEditError() : handleDelete(post)
                                             }
                                             className="pt-2 px-3 h5 text-danger" role="button" />
                                     </> :
@@ -106,7 +119,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                         </div>
                     </div>
                 </div>
-                {
+                {homepage ? null :
                     post.comments && post.comments.length > 0 && (
                         <ol className="list-group" style={{ maxHeight: "165px", overflow: "scroll" }}>
                             {post.comments.slice(0, commentCount).map((c) => (
@@ -140,6 +153,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                     )
                 }
             </div >}
+
         </>
 
     )

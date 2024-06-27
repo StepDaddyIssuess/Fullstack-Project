@@ -7,12 +7,12 @@ dotenv.config();
 
 const router = express.Router();
 // Controllers
-const { createPost, createImage, postsByUser, userPost, updatePost, deletePost, newsFeed, likePost, unlikePost, addComment, removeComment, totalPosts, posts } = require("../controllers/posts");
+const { createPost, createImage, postsByUser, userPost, updatePost, deletePost, newsFeed, likePost, unlikePost, addComment, removeComment, totalPosts, posts, getPost } = require("../controllers/posts");
 
 // Middleware
-const { requireSignin, canEditDeletePost } = require('../middleware');
+const { requireSignin, canEditDeletePost, isAdmin } = require('../middleware');
 
-
+router.get('/favicon.ico', (req, res) => res.status(204).end());
 
 router.post("/create-post", requireSignin, createPost);
 router.post("/upload-image",
@@ -36,6 +36,11 @@ router.put("/add-comment", requireSignin, addComment)
 router.put("/remove-comment", requireSignin, removeComment)
 
 router.get("/posts", posts)
+router.get("/post/:_id", getPost)
+
+//Admin
+router.delete("/admin/delete-post/:_id", requireSignin, isAdmin, deletePost)
+
 
 
 
