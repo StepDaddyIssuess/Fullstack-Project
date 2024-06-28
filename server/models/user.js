@@ -34,8 +34,12 @@ const userSchema = new Schema({
         url: String,
         public_id: String,
     },
+    role: {
+        type: String,
+        default: "user",
+    },
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }]
-}, { timeStamp: true });
+}, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);

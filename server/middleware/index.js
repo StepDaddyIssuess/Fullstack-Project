@@ -49,4 +49,19 @@ const removeFollower = async (req, res, next) => {
     }
 }
 
-module.exports = { requireSignin, canEditDeletePost, addFollower, removeFollower }
+const isAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.auth._id);
+        if (user.role !== "admin") {
+            return res.status(400).send("Unauthorized");
+        }
+        else {
+            next();
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports = { requireSignin, canEditDeletePost, addFollower, removeFollower, isAdmin }

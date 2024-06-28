@@ -301,7 +301,19 @@ const searchUser = async (req, res) => {
                 { name: { $regex: query, $options: "i" } },
                 { username: { $regex: query, $options: "i" } }
             ]
-        }).select("_id name username image");
+        }).select("-password -secret");
+        res.json(user);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const getUser = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+            .select("-password -secret");
+
         res.json(user);
     }
     catch (err) {
@@ -311,6 +323,6 @@ const searchUser = async (req, res) => {
 
 
 
-module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser };
+module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser, getUser };
 
 

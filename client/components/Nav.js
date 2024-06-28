@@ -56,6 +56,12 @@ function Nav() {
                                 </Link>
 
                                 <a className="nav-link dropdown-item" onClick={logout}>Logout</a>
+
+                                {state.user.role === "admin" && (
+                                    <Link href="/admin" className="nav-link dropdown-item ">
+                                        AdminPage
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </>

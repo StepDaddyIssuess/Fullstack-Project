@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../context";
 import axios from "axios";
 import People from "../components/cards/People";
+import { toast } from "react-toastify";
 
 const Search = () => {
 
@@ -23,6 +24,45 @@ const Search = () => {
         }
         catch (error) {
             console.error("Error searching user:", error.response ? error.response.data : error.message);
+        }
+    }
+
+    const handleFollow = async (user) => {
+        try {
+            const { data } = await axios.put("user-follow", { _id: user._id })
+
+            // Update local storage, update user , keep token
+            let auth = JSON.parse(localStorage.getItem("auth"));
+            auth.user = data;
+            localStorage.setItem("auth", JSON.stringify(auth));
+            // update context
+            setState({ ...state, user: data });
+            // update people state
+            setResult(prevPeople => prevPeople.filter((p) => p._id !== user._id));
+            // Success
+            toast.success(`Following ${user.username}`);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleUnfollow = async (user) => {
+        try {
+            const { data } = await axios.put("/user-unfollow", { _id: user._id });
+
+            let auth = JSON.parse(localStorage.getItem("auth"));
+            auth.user = data;
+            localStorage.setItem("auth", JSON.stringify(auth));
+            // update context
+            setState({ ...state, user: data });
+            // update people state
+            setResult(prevPeople => prevPeople.filter((p) => p._id !== user._id));
+            toast.error(`Unfollowed ${user.username}`);
+
+        }
+        catch (err) {
+            console.log(err);
         }
     }
 
@@ -51,7 +91,7 @@ const Search = () => {
             </form>
 
 
-            {result && result.map((r) => <People key={r._id} people={result} />)}
+            {result && result.map((r) => <People key={r._id} people={result} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />)}
         </>
 
 

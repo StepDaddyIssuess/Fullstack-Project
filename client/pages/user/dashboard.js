@@ -12,7 +12,11 @@ import { Modal, Button, Pagination } from 'antd';
 import CommentForm from "../../components/forms/CommentForm";
 import ReactPaginate from "react-paginate";
 import Search from "../../components/Search";
+import io from "socket.io-client";
 
+const socket = io(process.env.NEXT_PUBLIC_SOCKETIO, {
+    reconnection: true,
+})
 
 
 const Home = () => {
@@ -99,6 +103,7 @@ const Home = () => {
                 setContent("");
                 setImage({});
                 newsFeed();
+                socket.emit("new-post", data);
             }
         }
         catch (error) {
@@ -275,7 +280,7 @@ const Home = () => {
                             pageClassName={"pages"}
                             pageLinkClassName={'page-link'}
                             forcePage={page - 1}
-                            className="pb-5"
+                            className="pb-5 d-flex fs-5"
                         />
 
                     </div>
