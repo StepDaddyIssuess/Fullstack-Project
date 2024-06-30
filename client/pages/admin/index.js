@@ -60,8 +60,8 @@ const Home = () => {
                     <div className="col-md-8 offset-md-2">
                         {posts.map((p) => {
                             return (
-                                <div className="d-flex justify-content-around fs-5 h1" key={p._id}>
-                                    {ReactHtmlParser(p.content)} <b>{p.postedBy.name}</b>
+                                <div className="d-flex justify-content-around fs-5 h1 test" key={p._id}>
+                                    Content: {ReactHtmlParser(p.content)} <b>Posted By {p.postedBy.name}</b>
                                     <span className="text-danger " onClick={() => handleDelete(p)} role="button">
                                         Delete
                                     </span>

@@ -72,7 +72,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
 
                     <div className="pt-2 d-flex justify-content-between">
                         <div className="d-flex">
-                            {!homepage || SinglePost || (state && state.user && post.likes.includes(state.user._id))
+                            {homepage || SinglePost || (state && state.user && post.likes.includes(state.user._id))
                                 ? <HeartFilled
                                     onClick={() => homepage || SinglePost ? handleError() : handleUnlike(post._id)}
                                     className="text-danger  h5" style={{
