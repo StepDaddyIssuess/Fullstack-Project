@@ -12,6 +12,7 @@ import "../public/css/register.css"
 import "../public/css/login.css"
 import "../public/css/profile.css"
 import "../public/css/dashboard.css"
+import "../public/css/forgot-pass.css"
 
 function Myapp({ Component, pageProps }) {
     return (

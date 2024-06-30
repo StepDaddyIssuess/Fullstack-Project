@@ -160,7 +160,7 @@ const PostComment = () => {
             <div className="container-fluid">
                 <div className="row py-5 bg-secondary text-light bg-default-image">
                     <div className="col text-center">
-                        <h1 className="login-title">FullStackProject</h1>
+                        <h1 className="login-text">FullStackProject</h1>
                     </div>
                 </div>
 

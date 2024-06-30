@@ -1,0 +1,57 @@
+.container-fluid-forgot-password{
+    min-height: 100%;
+    background-image: url(../images/pexels-ian-panelo-10722260.jpg);
+}
+
+
+
+.forgot-pass-content{
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: 3px white solid;
+    border-radius: 10px;
+    padding: 65px;
+}
+
+.forgot-pass-title{
+    color: white;
+    font-family: hero;
+    display: flex;
+    justify-content: center;
+
+}
+
+.forgot-pass-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.forgot-pass-tiny-text{
+    color: white !important;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    top: 10px;
+}
+
+.forgot-pass-submit-button{
+    background-color: white !important;
+    color: black !important;
+    border-radius: 15px;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.submit-button{
+    display:flex;
+    justify-content: center;
+    margin: 20px;
+}

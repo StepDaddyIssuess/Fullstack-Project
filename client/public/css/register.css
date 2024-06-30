@@ -54,14 +54,15 @@
 
 .register-content{
     position: relative;
-    bottom: 70px;
+    top: 30px;
     width: 300px;
 }
 #register-text{
     background-color: transparent;
     box-shadow: white 0px 0px 5px;
-    color: white;
+    color: white !important;
 }
+
 
 #register-option{
     color: red;
