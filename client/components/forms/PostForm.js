@@ -1,6 +1,7 @@
 import { Avatar } from "antd"
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
+
 import "react-quill/dist/quill.snow.css"
 import React, { useState, useEffect } from 'react';
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";

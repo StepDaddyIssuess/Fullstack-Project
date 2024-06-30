@@ -44,7 +44,7 @@ const Username = () => {
 
     return (
         <div className="row col-md-6 offset-md-3">
-            <pre>{JSON.stringify(user, null, 4)}</pre>
+            {/* <pre>{JSON.stringify(user, null, 4)}</pre> */}
 
 
             <div className="pt-5 pb-5">
