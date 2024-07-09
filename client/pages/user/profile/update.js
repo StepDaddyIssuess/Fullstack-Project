@@ -115,13 +115,13 @@ const ProfileUpdate = () => {
                 </div>
             </div>
 
-            <div className="row py-5 ">
+            <div className=" ">
                 <div className="profile-content ">
 
-                    <label className="d-flex justify-content-center display-4 profile-user-content ">
+                    <label className="d-flex justify-content-center display-4 profile-picture ">
                         {
                             image && image.url ?
-                                (<Avatar size={100} src={image.url} className="mt-1 profile-pfp" role="button" />) :
+                                (<Avatar size={100} src={image.url} className="" role="button" />) :
                                 uploading ?
                                     (<LoadingOutlined spin />) :
                                     (<CameraOutlined className="mt-2" role="button" />)
