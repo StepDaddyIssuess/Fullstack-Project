@@ -54,10 +54,10 @@ const Home = () => {
         }
     }, [state && state.token, page]);
 
-    useEffect(() => {
+    useEffect(async () => {
         try {
-            axios.get("/total-posts")
-                .then(({ data }) => setTotalPosts(data))
+            const { data } = await axios.get("/total-posts")
+            setTotalPosts(data)
         }
         catch (err) {
             console.log(err);
