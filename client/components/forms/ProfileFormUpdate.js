@@ -47,7 +47,7 @@ const ProfileFormUpdate = ({
 
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted ">Your name</label>
+                        <label className="text-muted profile-user-text">Your name</label>
                     </small>
 
                     <input
@@ -60,7 +60,7 @@ const ProfileFormUpdate = ({
 
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">Your Email</label>
+                        <label className="text-muted profile-user-text">Your Email</label>
                     </small>
                     <input
                         type="email"
@@ -73,7 +73,7 @@ const ProfileFormUpdate = ({
 
                 <div className="form-group p-2 Nikker">
                     <small>
-                        <label className="text-muted ">Your Password</label>
+                        <label className="text-muted profile-user-text">Your Password</label>
                     </small>
                     <input
                         type="password" className="form-control" placeholder="Enter password"
@@ -84,7 +84,7 @@ const ProfileFormUpdate = ({
 
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted">Pick a question</label>
+                        <label className="text-muted profile-user-text">Pick a question</label>
                     </small>
                     <select className="form-control">
                         <option>What is your favourite color?</option>
@@ -96,7 +96,7 @@ const ProfileFormUpdate = ({
                 </div>
 
                 <div className="form-group p-2">
-                    <small className=" text-muted" >
+                    <small className=" text-muted profile-user-text" >
                         You can use these to reset your password if forgotten.
                     </small>
                     <input

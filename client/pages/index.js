@@ -45,8 +45,10 @@ const Home = ({ posts }) => {
         <div style={{ overflow: "hidden" }}>
             <div className="container-fluid home--container">
                 <div className="home--title">
-                    <h1 className="display-1 text-center py-5 home--text">FULL STACK PROJECT
-                    </h1>
+                    <div>
+                        <h1 className="text-center home--text">FULL STACK PROJECT
+                        </h1>
+                    </div>
                 </div>
 
                 <div className="container">

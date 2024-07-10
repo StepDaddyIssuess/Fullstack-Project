@@ -1,44 +1,45 @@
 .profile-text{
-    background-color: black !important;
+    border: 2px solid wheat;
+    width: min(90%,1000px);
+    margin-inline: auto;
+    
 }
 
 .welcome-text{
     color: white !important;
 }
 
-.profile-tiny-text{
+
+
+.profile-page{
+    /* background */
+}
+
+
+/* profile-information-tiny-text */
+.profile-user-text{
     color: black !important;
 }
 
-.profile-page{
-    background-color: black !important;
-}
-
-.profile-user-text{
-    color: white !important;
-}
-
-.profile-user-content{
-    border: solid white 1px !important;
-    padding: 40px 50px 60px;
+.profile-picture{
+    border: solid black 1px !important;
     border-radius: 24px;
-    height: 400px;
-}
-
-.profile-pfp{
-height: 300px !important;
-width: 300px !important;
+    padding: 100px;
 }
 
 .profile-content{
     display: flex;
+    flex-flow: wrap;
     justify-content: center;
     align-items: center;
-    gap: 300px;
 }
+
 .profile-information{
-    border: solid 3px white;
-    padding: 20px 300px;
+    border: solid 3px black;
     border-radius: 20px;
+}
+
+.profile-information .form-control{
+    background-color: blue;
 }
 
