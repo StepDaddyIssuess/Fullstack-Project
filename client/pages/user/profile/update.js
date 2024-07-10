@@ -108,48 +108,47 @@ const ProfileUpdate = () => {
 
 
     return (
-        <div className="container-fluid profile-page">
-            <div className="row py-5 bg-secondary text-light bg-default-image profile-text">
-                <div className="col text-center ">
-                    <h1 className="welcome-text">Welcome to your profile</h1>
-                </div>
-            </div>
+        <div className="profile-page profile-bg">
 
-            <div className=" ">
+
+
                 <div className="profile-content ">
+                      <div className="profile-flex">
+                          <h1 className="welcome-text">Welcome to your profile</h1>
+                                              <label className="display-4 profile-picture ">
+                            {
+                                image && image.url ?
+                                    (<Avatar size={245} src={image.url} className="profile-picture-img" role="button " />) :
+                                    uploading ?
+                                        (<LoadingOutlined spin />) :
+                                        (<CameraOutlined className="mt-2" role="button" />)
+                            }
+                            <input onChange={handleImage} type="file" accept="images/*" hidden />
+                                              </label>
+                      </div>
 
-                    <label className="d-flex justify-content-center display-4 profile-picture ">
-                        {
-                            image && image.url ?
-                                (<Avatar size={100} src={image.url} className="" role="button" />) :
-                                uploading ?
-                                    (<LoadingOutlined spin />) :
-                                    (<CameraOutlined className="mt-2" role="button" />)
-                        }
-                        <input onChange={handleImage} type="file" accept="images/*" hidden />
-                    </label>
-
-
-                    <ProfileFormUpdate
-                        username={username}
-                        setUsername={setUsername}
-                        about={about}
-                        setAbout={setAbout}
-                        handleSubmit={handleSubmit}
-                        name={name}
-                        setName={setName}
-                        email={email}
-                        setEmail={setEmail}
-                        password={password}
-                        setPassword={setPassword}
-                        secret={secret}
-                        setSecret={setSecret}
-                        loading={loading}
-                        profileUpdate={true}
-                        page="login"
-                    />
+<div className="profile-update-info">
+    
+                        <ProfileFormUpdate
+                            username={username}
+                            setUsername={setUsername}
+                            about={about}
+                            setAbout={setAbout}
+                            handleSubmit={handleSubmit}
+                            name={name}
+                            setName={setName}
+                            email={email}
+                            setEmail={setEmail}
+                            password={password}
+                            setPassword={setPassword}
+                            secret={secret}
+                            setSecret={setSecret}
+                            loading={loading}
+                            profileUpdate={true}
+                            page="login"
+                        />
+</div>
                 </div>
-            </div>
 
             <div className="row">
                 <div className="col">
