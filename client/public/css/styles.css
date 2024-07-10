@@ -84,3 +84,14 @@
     margin: 10px;
     
 }
+
+/* profile-page-wallpaper */
+.profile-bg{
+    height: 100vh;
+    background-image: url(../images/download\ \(1\).jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+}

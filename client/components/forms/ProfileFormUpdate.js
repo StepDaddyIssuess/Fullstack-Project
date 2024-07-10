@@ -84,9 +84,9 @@ const ProfileFormUpdate = ({
 
                 <div className="form-group p-2">
                     <small>
-                        <label className="text-muted profile-user-text">Pick a question</label>
+                        <label className="text-muted profile-user-text ">Pick a question</label>
                     </small>
-                    <select className="form-control">
+                    <select className="form-control select-option">
                         <option>What is your favourite color?</option>
                         <option>What is your best friend's name?</option>
                         <option>What city you were born?</option>

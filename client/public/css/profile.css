@@ -1,3 +1,13 @@
+@font-face {
+    font-family:mermaid ;
+    src: url(../fonts/mermaid/Mermaid1001.ttf);
+}
+
+@font-face {
+    font-family: romance;
+    src: url(../fonts/romance_breakin/Romance\ Breakin.ttf);
+}
+
 .profile-text{
     border: 2px solid wheat;
     width: min(90%,1000px);
@@ -7,39 +17,147 @@
 
 .welcome-text{
     color: white !important;
+    text-shadow: 3px 3px 2px black;
+    width: clamp(25ch, 50%, 35ch);
+    text-align: center;
+    font-family: mermaid ;
+}
+
+.profile-update-info{
+    width: min(95%,400px);
+}
+
+.profile-update-info ::placeholder {
+    color: white;
 }
 
 
-
 .profile-page{
-    /* background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 /* profile-information-tiny-text */
 .profile-user-text{
-    color: black !important;
+    color: white !important;
+    font-weight: 400;
+    font-size: 1.1em;
 }
 
 .profile-picture{
-    border: solid black 1px !important;
-    border-radius: 24px;
-    padding: 100px;
-}
-
-.profile-content{
+    border: solid white 1px !important;
+    box-shadow: 0px 0px 40px black;
+    border-radius: 2000px;
+    width: 250px;
+    height: 250px;
     display: flex;
-    flex-flow: wrap;
     justify-content: center;
     align-items: center;
 }
 
+.profile-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap;
+    width: min(90%,1000px);
+    height: min(80%,900px);
+    margin-inline: auto;
+    border-radius: 20px;
+    gap: 60px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border: solid 1px white;
+
+}
+
 .profile-information{
-    border: solid 3px black;
     border-radius: 20px;
 }
 
 .profile-information .form-control{
-    background-color: blue;
+    background-color: transparent;
 }
 
+.profile-information input{
+    border-radius: 20px;
+    border: 2px solid white;
+    color: white;
+}
+
+.profile-information .select-option{
+    border: 2px solid white;
+    border-radius: 20px;
+    color: white;
+}
+
+.profile-flex{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+@media screen and (max-width: 860px) {
+    .profile-content{
+        display: flex;
+        flex-flow: wrap;
+    }
+    .profile-flex{
+        height: 200px;
+        width: 150px;
+        flex-shrink: 0;
+    }
+
+    .profile-picture-img{
+        height: 150px !important;
+        width: 150px !important;
+    }
+
+    .profile-picture{
+        height: 150px !important;
+        width: 150px !important;
+    }
+    .profile-information div{
+        height: 70px;
+  }
+
+  .profile-information .register-button{
+    margin-top: 30px;
+  }
+    .profile-content{
+        height: 95%;
+    }
+    .profile-update-info{
+        margin-top: -50px;
+    }
+}
+
+@media screen and (max-width: 1043px) {
+    .profile-content{
+        display: flex;
+        flex-flow: wrap;
+    }
+    .profile-flex{
+        height: 200px;
+        width: 200px;
+    }
+    .profile-information div{
+        height: 70px;
+  }
+    .profile-content{
+        height: 95%;
+    }
+    .profile-update-info{
+        margin-top: -50px;
+    }
+    .welcome-text{
+        color: white !important;
+        font-size: 25px;
+        width: 150px;
+        text-align: center;
+    }
+}
