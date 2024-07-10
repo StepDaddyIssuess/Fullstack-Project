@@ -53,14 +53,16 @@ const Login = () => {
 
     return (
         <div className="container-fluid image-bg">
-            <div className="row py-5 bg-secondary text-light bg-default-image login-box-above-text">
-                <div className="col text-center">
-                    <h1 className="login-title">Login Page</h1>
-                </div>
+            <div className="row py-5 bg-secondary text-light bg-default-image extra-styling">
+     
             </div>
 
-            <div className="row py-5">
-                <div className="col-md-6 offset-md-3 login-page">
+            <div className="">
+                <div className="login-page">
+                <div className="text-center">
+                    <h1 className="login-title">Login Page</h1>
+                </div>
+                <br />
                     <AuthForm
                         handleSubmit={handleSubmit}
                         email={email}
@@ -70,24 +72,14 @@ const Login = () => {
                         loading={loading}
                         page="login"
                     />
-                </div>
-            </div>
-
-
-            <div className="row">
-                <div className="col">
-                    <p className="text-center">Not registered yet? <Link href="/register">Register</Link>
-                    </p>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col login-box">
-                    <p className="text-center ">
+                    <br />
+                    <p>
                         <Link href="/forgot-password">
-                            <span className="login--forgot--password">Forgot Password?</span>
-                        </Link>
+                        <span className="login--forgot--password">Forgot Password?</span>
+                         </Link>
                     </p>
+                     <p >Not registered yet? <Link href="/register">Register</Link> </p>
+
                 </div>
             </div>
         </div>
