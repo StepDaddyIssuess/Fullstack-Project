@@ -34,7 +34,7 @@ const Following = () => {
     const fetchFollowing = async () => {
         try {
             const { data } = await axios.get("/user-following");
-            console.log("Following => ", data);
+            // console.log("Following => ", data);
             setPeople(data);
 
         }

@@ -15,12 +15,14 @@
 
 
 
-
+.test {
+    position: absolute;
+    z-index: 0;
+}
 
 .home--container{
-    height: 100vh;
     background-position: center;
-    background-image: url("../images/pexels-iriser-1366957.jpg");
+    /* background-image: url("../images/pexels-iriser-1366957.jpg"); */
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +30,6 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
-   
 }
 
 
@@ -40,12 +41,12 @@
     text-shadow: 4px 0px 2px black;
     border: solid 2px white;
     backdrop-filter: blur(6px);
-    width: min(90%,1200px);
+    width: min(100%,1300px);
     padding: 50px;
     margin: auto;
 }
 
 .home--title{
-    width: min(90%,1700px);
+    width: min(95%,1700px);
     margin: auto;
 }

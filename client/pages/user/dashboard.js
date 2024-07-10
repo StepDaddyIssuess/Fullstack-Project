@@ -54,10 +54,10 @@ const Home = () => {
         }
     }, [state && state.token, page]);
 
-    useEffect(async () => {
+    useEffect(() => {
         try {
-            const { data } = await axios.get("/total-posts")
-            setTotalPosts(data)
+            axios.get("/total-posts")
+                .then(({ data }) => setTotalPosts(data));
         }
         catch (err) {
             console.log(err);
@@ -69,7 +69,7 @@ const Home = () => {
     const newsFeed = async () => {
         try {
             const { data } = await axios.get(`/news-feed/${page}`);
-            setPosts(data);
+            // setPosts(data);
             console.log(data);
         }
         catch (err) {

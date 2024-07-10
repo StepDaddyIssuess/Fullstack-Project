@@ -43,6 +43,7 @@ const Home = ({ posts }) => {
 
     return (
         <div style={{ overflow: "hidden" }}>
+            <img className="test" src="../images/pexels-iriser-1366957.jpg" />
             <div className="container-fluid home--container">
                 <div className="home--title">
                     <div>
