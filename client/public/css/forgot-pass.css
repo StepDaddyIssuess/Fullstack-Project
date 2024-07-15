@@ -1,5 +1,7 @@
 .container-fluid-forgot-password{
-    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 95vh;
     background-image: url(../images/pexels-ian-panelo-10722260.jpg);
 }
 
@@ -25,7 +27,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
 }
 
 .forgot-pass-tiny-text{

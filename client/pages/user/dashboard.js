@@ -58,6 +58,8 @@ const Home = () => {
         try {
             axios.get("/total-posts")
                 .then(({ data }) => setTotalPosts(data));
+            // const { data } = await axios.get(`/total-posts`);
+            // setTotalPosts(data);
         }
         catch (err) {
             console.log(err);
@@ -69,7 +71,7 @@ const Home = () => {
     const newsFeed = async () => {
         try {
             const { data } = await axios.get(`/news-feed/${page}`);
-            // setPosts(data);
+            setPosts(data);
             console.log(data);
         }
         catch (err) {

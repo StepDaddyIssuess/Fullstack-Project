@@ -2,3 +2,4 @@ Explenation
 .vscode
 client/env.download
 server/env
+node_modules

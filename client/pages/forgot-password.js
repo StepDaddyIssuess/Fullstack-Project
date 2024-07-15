@@ -53,11 +53,11 @@ const ForgotPassword = () => {
   if (state && state.token) { router.push("/") };
 
   return (
-    <div className="container-fluid container-fluid-forgot-password">
+    <div className="container-fluid-forgot-password">
 
       <div className=" forgot-pass-container  ">
         <div className="forgot-pass-content ">
-                    <h1 className="forgot-pass-title">Forgot Password</h1>
+          <h1 className="forgot-pass-title">Forgot Password</h1>
           <ForgotPasswordForm
             handleSubmit={handleSubmit}
             email={email}

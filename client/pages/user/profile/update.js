@@ -112,43 +112,43 @@ const ProfileUpdate = () => {
 
 
 
-                <div className="profile-content ">
-                      <div className="profile-flex">
-                          <h1 className="welcome-text">Welcome to your profile</h1>
-                                              <label className="display-4 profile-picture ">
-                            {
-                                image && image.url ?
-                                    (<Avatar size={245} src={image.url} className="profile-picture-img" role="button " />) :
-                                    uploading ?
-                                        (<LoadingOutlined spin />) :
-                                        (<CameraOutlined className="mt-2" role="button" />)
-                            }
-                            <input onChange={handleImage} type="file" accept="images/*" hidden />
-                                              </label>
-                      </div>
-
-<div className="profile-update-info">
-    
-                        <ProfileFormUpdate
-                            username={username}
-                            setUsername={setUsername}
-                            about={about}
-                            setAbout={setAbout}
-                            handleSubmit={handleSubmit}
-                            name={name}
-                            setName={setName}
-                            email={email}
-                            setEmail={setEmail}
-                            password={password}
-                            setPassword={setPassword}
-                            secret={secret}
-                            setSecret={setSecret}
-                            loading={loading}
-                            profileUpdate={true}
-                            page="login"
-                        />
-</div>
+            <div className="profile-content ">
+                <div className="profile-flex">
+                    <h1 className="welcome-text">Welcome to your profile</h1>
+                    <label className="display-4 profile-picture ">
+                        {
+                            image && image.url ?
+                                (<Avatar size={245} src={image.url} className="profile-picture-img" role="button " />) :
+                                uploading ?
+                                    (<LoadingOutlined spin />) :
+                                    (<CameraOutlined className="mt-2" role="button" />)
+                        }
+                        <input onChange={handleImage} type="file" accept="images/*" hidden />
+                    </label>
                 </div>
+
+                <div className="profile-update-info">
+
+                    <ProfileFormUpdate
+                        username={username}
+                        setUsername={setUsername}
+                        about={about}
+                        setAbout={setAbout}
+                        handleSubmit={handleSubmit}
+                        name={name}
+                        setName={setName}
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        secret={secret}
+                        setSecret={setSecret}
+                        loading={loading}
+                        profileUpdate={true}
+                        page="login"
+                    />
+                </div>
+            </div>
 
             <div className="row">
                 <div className="col">
