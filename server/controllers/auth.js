@@ -296,13 +296,25 @@ const searchUser = async (req, res) => {
     try {
 
         // Find the user
-        const user = await User.find({
-            $or: [
-                { name: { $regex: query, $options: "i" } },
-                { username: { $regex: query, $options: "i" } }
-            ]
-        }).select("-password -secret");
-        res.json(user);
+        const users = await User.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { name: { $regex: query, $options: "i" } },
+                        { username: { $regex: query, $options: "i" } }
+                    ]
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id", // Ensure unique users by ID
+                    name: { $first: "$name" },
+                    username: { $first: "$username" },
+                    // Include other fields you want to return
+                }
+            }
+        ]);
+        res.json(users);
     }
     catch (err) {
         console.log(err);
@@ -321,8 +333,25 @@ const getUser = async (req, res) => {
     }
 }
 
+const users = async (req, res) => {
+    const user = await User.find()
+        .select("-password -secret")
+        .limit(100);
+    res.json(user)
+}
 
+const deleteUser = async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params._id);
+        res.json({ message: "User deleted successfully" });
+    }
+    catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 
-module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser, getUser };
+}
+
+module.exports = { register, login, currentUser, forgotPassword, profileUpdate, findPeople, userFollow, userFollowing, userUnfollow, searchUser, getUser, users, deleteUser };
 
 

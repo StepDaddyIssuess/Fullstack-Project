@@ -13,6 +13,8 @@ const Home = () => {
 
     const [posts, setPosts] = useState([]);
 
+    const [users, setUsers] = useState([])
+
     // Router
     const router = useRouter();
 
@@ -20,6 +22,7 @@ const Home = () => {
     useEffect(() => {
         if (state && state.token) {
             newsFeed();
+            loadUsers();
         }
     }, [state && state.token]);
 
@@ -40,12 +43,35 @@ const Home = () => {
         try {
             const { data } = await axios.delete(`/admin/delete-post/${post._id}`);
             toast.error("Post Deleted!");
+            loadUsers();
             newsFeed();
         }
         catch (error) {
             console.log(error);
         }
     };
+
+    const handleDeleteUser = async (user) => {
+        try {
+            const { data } = await axios.delete(`/admin/delete-user/${user._id}`);
+            toast.error("User Deleted!");
+            // Remove user from state
+            setUsers(users.filter(u => u._id !== user._id));
+            newsFeed();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const loadUsers = async () => {
+        try {
+            const { data } = await axios.get(`/users`);
+            setUsers(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <AdminRoute>
@@ -68,6 +94,29 @@ const Home = () => {
                                 </div>
                             )
                         })}
+
+                    </div>
+                </div>
+
+                <div className="row py-1">
+                    <div className="col-md-12">
+                        {users.map((user) => {
+                            return (
+                                user.role == 'admin' ? null : (
+                                    <div className="d-flex justify-content-around fs-5 h1 " key={user._id}>
+                                        name: <b>{user.name}</b>
+
+                                        username: <b>{user.username}</b>
+
+                                        role: <b>{user.role}</b>
+                                        <span className="text-danger " onClick={() => handleDeleteUser(user)} role="button">
+                                            Delete
+                                        </span>
+                                    </div>
+                                )
+                            )
+                        })}
+
                     </div>
                 </div>
             </div>

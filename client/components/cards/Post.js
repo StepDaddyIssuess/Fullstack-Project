@@ -102,7 +102,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
 
                         <div className="">
                             {
-                                state && state.user && state.user._id === post.postedBy._id ?
+                                state && state.user && state.user._id === post.postedBy._id || state && state.user && state.user.role == "admin" ?
                                     <>
                                         <EditOutlined className="pt-2 px-3 h5" role="button" onClick={() => router.push(`/user/post/${post._id}`)} />
                                         <DeleteOutlined
@@ -110,8 +110,8 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
                                                 homepage || SinglePost ? deleteEditError() : handleDelete(post)
                                             }
                                             className="pt-2 px-3 h5 text-danger" role="button" />
-                                    </> :
-                                    null
+                                    </> : null
+
                             }
 
 
@@ -139,7 +139,7 @@ const Post = ({ post, handleDelete, handleLike, handleUnlike, handleComment, add
 
                                     <div>
                                         {moment(c.created).fromNow()}
-                                        {state && state.user && state.user._id === c.postedBy._id && (
+                                        {state && state.user && state.user._id === c.postedBy._id || state && state.user && state.user.role == "admin" && (
                                             <div style={{ marginLeft: "auto", marginTop: "1rem" }} className="ml-auto mt-1 text-center">
                                                 <DeleteOutlined className="pl-3 text-danger"
                                                     onClick={() => removeComment(post._id, c)}

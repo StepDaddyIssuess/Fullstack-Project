@@ -20,7 +20,8 @@ const Search = () => {
         // Try/Catch
         try {
             const { data } = await axios.put(`/search-user/${query}`)
-            setResult(data);
+            const uniqueUsers = Array.from(new Map(data.map(user => [user._id, user])).values());
+            setResult(uniqueUsers);
         }
         catch (error) {
             console.error("Error searching user:", error.response ? error.response.data : error.message);
@@ -91,7 +92,15 @@ const Search = () => {
             </form>
 
 
-            {result && result.map((r) => <People key={r._id} people={result} handleFollow={handleFollow} handleUnfollow={handleUnfollow} />)}
+            {result.length > 0 ? (
+                <People
+                    people={result} // Pass an array of users
+                    handleFollow={handleFollow}
+                    handleUnfollow={handleUnfollow}
+                />
+            ) : (
+                <p></p>
+            )}
         </>
 
 

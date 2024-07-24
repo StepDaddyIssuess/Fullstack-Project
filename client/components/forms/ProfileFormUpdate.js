@@ -28,7 +28,7 @@ const ProfileFormUpdate = ({
                     </small>
                     <input
                         type="text"
-                        className="form-control" placeholder="Enter Username"
+                        className="form-control " placeholder="Enter Username"
                         value={username}
                         onChange={e => setUsername(e.target.value)}
                     />

@@ -205,7 +205,7 @@ const posts = async (req, res) => {
         const posts = await Post.find()
             .populate("postedBy", "_id name image")
             .populate("comments.postedBy", "_id name image")
-            .limit(1);
+            .limit(12);
         res.json(posts);
     }
     catch (err) {

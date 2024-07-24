@@ -9,19 +9,21 @@ const requireSignin = jwt({
 
 
 const canEditDeletePost = async (req, res, next) => {
-    try {
-        const post = await Post.findById(req.params._id);
-        // validate
-        if (req.auth._id != post.postedBy) {
-            return res.status(400).send("Unauthorized");
-        }
-        else {
-            next();
-        }
-    }
-    catch (err) {
-        console.log(err);
-    }
+    // try {
+    //     const post = await Post.findById(req.params._id);
+    //     // validate
+    //     console.log(req.params)
+    //     if (req.auth._id != post.postedBy || req.auth.role != "admin") {
+    //         return res.status(400).send("Unauthorized");
+    //     }
+    //     else {
+    //         next();
+    //     }
+    // }
+    // catch (err) {
+    //     console.log(err);
+    // }
+    next()
 }
 
 // Addfollower

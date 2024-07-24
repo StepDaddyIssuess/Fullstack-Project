@@ -77,8 +77,16 @@
     border-radius: 20px;
 }
 
+.profile-information .form-group input{
+    color: white;
+}
+
 .profile-information .form-control{
     background-color: transparent;
+}
+
+.profile-information .form-control input{
+    color: white;
 }
 
 .profile-information input{
