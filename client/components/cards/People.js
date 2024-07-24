@@ -21,20 +21,25 @@ const People = ({ people, handleFollow, handleUnfollow }) => {
                 renderItem={(user) => (
                     <List.Item.Meta
                         className="mb-2 people-after dashboard--sidebar--following--container "
-                        avatar={<Avatar size={60} src={imageSource(user)} />}
-                        title={<div className="d-flex justify-content-between h5 ">
+
+                        title={<div className="dashboard-name-list ">
+
+                            <div>
+                            {<Avatar size={60} src={imageSource(user)} />}
                             <Link href={`/user/${user.username}`} >
                                 <span className="dashboard--sidebar--following--usernames">
                                     {user.username}
                                 </span>
                             </Link>
-
+                            </div>
+                            <div>
                             {state && state.user && user.followers && user.followers.includes(state.user._id) ? <span className=" people-border dashboard--sidebar--following--button" role="button"
                                 onClick={() => handleUnfollow(user)}
                             >Unfollow</span> : <span className=" people-border dashboard--sidebar--following--button" role="button"
                                 onClick={() => handleFollow(user)}
                             >Follow</span>
                             }
+                            </div>
 
                         </div >}
                     />

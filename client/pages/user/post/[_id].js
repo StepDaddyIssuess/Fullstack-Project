@@ -84,7 +84,7 @@ const EditPost = () => {
             <div className="container-fluid">
                 <div className="row py-5 bg-secondary text-light bg-default-image">
                     <div className="col text-center">
-                        <h1>NewsFeed</h1>
+                        <h1>1NewsFeed</h1>
                     </div>
                 </div>
 

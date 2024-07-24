@@ -21,8 +21,8 @@ const AuthForm = ({
 
 
             {page !== "login" && <div className="form-group p-2">
-                <div className="row py-5 bg-secondary text-light bg-default-image register-box-above">
-                    <div className="col text-center ">
+                <div className=" register-box-above">
+                    <div className="col text-center ">row py-5 bg-secondary text-light bg-default-image
                         <h1 className='register-box-above-text'>Register</h1>
                     </div>
                 </div>

@@ -17,12 +17,25 @@
 
 /* Editor Expansion */
 .editor-container {
-    border: 1px solid #ccc;
+    border-radius: 15px;
     padding: 10px;
     min-height: 200px;
     max-height: 700px;
     overflow-y: auto;
+    color: white;
 }
+
+/* Editor Post/Camera Button */
+
+.post-camera-button-dashboard{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0px 25px;
+    position: relative;
+    
+}
+
 
 /* background login/register */
 
@@ -39,48 +52,80 @@
 /* Pagination */
 .pagination {
     gap: 2rem;
+    border: 1px solid black !important;
+    width: max(50%,300px);
+    padding: 10px;
+    border-radius: 40px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-shrink: 0;
     
 }
 
 .pages {
-    border: 2px solid  gray;
-    padding: 10px;
-    margin: 10px;
-    padding-block: 5px;
     list-style: none;
     display: grid;
     place-items: center;
+    flex-shrink: 0;
 }
 
 .focused{
-    background-color: black;
     color: white;
+    border: white 2px solid;
+
+    border-radius: 200px;
+    width: 50px;
+    background-color: transparent;
+    transition: .2s;
+    flex-shrink: 0;
+}
+.page-link{
+    background-color: transparent;
+    border: hidden;
+    color: white;
+    flex-shrink: 0;
+
+
+}
+.focused:hover{
+    opacity: .8;
+    flex-shrink: 0;
 }
 
-.page-link {
-    display: flex;
-    font-size: 25px;
-    margin: 10px;
+.page-link:hover{
+    background-color: transparent;
+    color: white;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
 
+.page-link:active{
+    background-color: transparent;
+    color: white;
 }
 
 .page-previous {
     display: flex;
     align-items: center;
-    border: 2px solid  gray;
-    padding: 15px;
-    padding-block: 5px;
-    margin: 10px;
+    box-shadow: 1px 1px 6px black;
+    height: 50px;
+    width: 50px;
+    border-radius: 40px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .page-next {
     display: flex;
     align-items: center;
-    border: 2px solid  gray;
-    padding: 15px;
-    padding-block: 5px;
-    margin: 10px;
-    
+    box-shadow: 1px 1px 6px black;
+    height: 50px ;
+    width: 50px;
+    border-radius: 40px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 /* profile-page-wallpaper */

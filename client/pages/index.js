@@ -43,14 +43,11 @@ const Home = ({ posts }) => {
 
     return (
         <div style={{ overflow: "hidden" }}>
-            <img className="test" src="../images/pexels-iriser-1366957.jpg" />
             <div className="container-fluid home--container">
-                <div className="home--title">
                     <div>
                         <h1 className="text-center home--text">FULL STACK PROJECT
                         </h1>
                     </div>
-                </div>
 
                 <div className="container">
                     <div className="row pt-5">

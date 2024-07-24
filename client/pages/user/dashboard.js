@@ -239,14 +239,12 @@ const Home = () => {
 
     return (
         <UserRoute>
-            <div className="container-fluid ">
-                <div className="row py-5 bg-secondary text-light bg-default-image">
-                    <div className="col text-center">
+            <div className="container-fluid db-bg">
+                    <div className="col text-center dashboard-heading">
                         <h1>NewsFeed</h1>
                     </div>
-                </div>
 
-                <div className="row py-3">
+                <div className="row dashboard-layout">
                     <div className="col-md-8">
                         <PostForm
                             content={content}
@@ -280,9 +278,9 @@ const Home = () => {
                             containerClassName={'pagination'}
                             activeClassName={'focused'}
                             pageClassName={"pages"}
-                            pageLinkClassName={'page-link'}
+
                             forcePage={page - 1}
-                            className="pb-5 d-flex fs-5"
+                            className=" pagination"
                         />
 
                     </div>
