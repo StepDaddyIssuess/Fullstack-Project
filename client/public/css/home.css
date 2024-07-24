@@ -21,8 +21,9 @@
 }
 
 .home--container{
+    min-height: 100vh;
     background-position: center;
-    /* background-image: url("../images/pexels-iriser-1366957.jpg"); */
+    background-image: url("../images/pexels-iriser-1366957.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,9 +45,5 @@
     width: min(100%,1300px);
     padding: 50px;
     margin: auto;
-}
-
-.home--title{
-    width: min(95%,1700px);
-    margin: auto;
+    margin-top: 50px;
 }

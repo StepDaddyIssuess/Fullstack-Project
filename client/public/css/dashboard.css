@@ -1,36 +1,107 @@
-.dashboard--side--bar--container{
-    border: 2px solid black;   
+@font-face {
+    font-family: poppins;
+    src: url(../fonts/poppins/Poppins-Regular.ttf);
 }
+
+.dashboard--side--bar--container{
+
+}
+
+.dashboard-card{
+    border: hidden;
+    background-color: transparent;
+
+}
+
+/* dashboard-background */
+.db-bg{
+    min-height: 100vh;
+    background-position: center;
+    background-image: url("../images/pexels-iriser-1366957.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 /* .dashboard--side--bar--link{
     text-transform: uppercase !important;
 
 } */
 
+.dashboard-name-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    width: min(90%,500px);
+    margin-inline: auto;
+
+}
+
+.dashboard-name-list div:nth-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-flow: wrap;
+    gap: 10px;
+}
+
 .dashboard--side--bar--link-text{
     font-size: 2rem;
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 30px;
+    padding: 10px;
+    color: white;
+    font-family: poppins;
+    font-weight: 600;
+
 }
 
 .dashboard--sidebar--following--container{
     padding: 1rem;
+    background-color: rgb(233, 233, 233);
+    border-radius: 20px;
 }
 
 .dashboard--sidebar--following--usernames{
-    margin-top: 1rem;
-    font-size: 25px;
+    font-size: clamp(.8rem, 5vw, 1.3rem);
 }
 
 .dashboard--sidebar--following--button{
-    margin-top: .5rem;
-    font-size: 25px;
-    padding: 10px;
+    font-size: 20px;
     text-decoration: none;
+    background-color: #1D9BF0;
+    border-radius: 10px;
+    padding: 8px 20px;
+    color: white;
+    transition: .5s;
 }
 
 .dashboard--sidebar--following--button:hover{
-    background-color: rgb(34, 34, 34);
+    opacity: .7
+}
+.db-comments{
+    background-color: ;
+}
+
+.dashboard-layout{
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-content: center;
+    margin: 50px 70px;
+    border: 1px white solid;
+    padding: 50px;
+}
+
+.dashboard-heading{
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.dashboard-heading h1{
     color: white;
 }

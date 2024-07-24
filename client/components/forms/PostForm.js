@@ -27,14 +27,14 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
 
 
     return (
-        <div className="card mb-5">
+        <div className="card mb-5 dashboard-card" >
             <div className="card-body pb-3">
                 <form className="form-group editor-container">
                     <ReactQuill
                         value={editorContent}
                         onChange={handleEditorChange}
                         placeholder="Write something..."
-                        style={{ height: "135px" }}
+                        style={{ height: "200px",position: "relative", width: "100%",color: "white"}}
 
                         modules={{
                             toolbar: [
@@ -52,10 +52,7 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
                             'list', 'bullet', 'link',
                         ]}
                     />
-                </form>
-            </div>
-
-            <div className="card-footer d-flex justify-content-between text-muted">
+                                    <div className=" post-camera-button-dashboard">
                 <button className="btn btn-primary btn-sm mt-1"
                     disabled={!content}
                     onClick={postSubmit}>
@@ -73,6 +70,14 @@ const PostForm = ({ content, setContent, postSubmit, handleImage, image, upLoadi
                     <input onChange={handleImage} type="file" accept="images/*" hidden />
                 </label>
             </div>
+                              
+                </form>
+
+                
+            </div>
+
+
+
         </div>
     )
 }
